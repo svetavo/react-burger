@@ -20,7 +20,7 @@ function Summary() {
         </p>
         <CurrencyIcon type="primary" />
       </div>
-      <Button type="primary" size="large" htmlType="submit">
+      <Button type="primary" size="large" htmlType="button">
         Оформить заказ
       </Button>
     </div>

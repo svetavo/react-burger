@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Logo,
   BurgerIcon,
@@ -5,12 +6,8 @@ import {
   ProfileIcon,
   Button
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
 import headerStyles from "./AppHeader.module.css";
 
-function HeaderLogo() {
-  return <Logo />;
-}
 
 function HeaderItem(props) {
   return <li className={headerStyles.header__item}>{props.children}</li>;
@@ -75,7 +72,7 @@ export default function AppHeader() {
           <HeaderItem children={<OrdersButton />} />
         </div>
         <div className={headerStyles.header__logo}>
-          <HeaderLogo />
+          <Logo />
         </div>
         <HeaderItem children={<ProfileButton />} />
       </nav>
