@@ -1,76 +1,93 @@
-import React from 'react';
-import constructorStyles from './BurgerConstructor.module.css';
-import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import {ingredients} from '../../utils/data';
+import React from "react";
+import PropTypes from "prop-types";
+import constructorStyles from "./BurgerConstructor.module.css";
+import {
+  ConstructorElement,
+  DragIcon,
+  CurrencyIcon,
+  Button,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import data from "../../utils/data";
 
-class Bun extends React.Component {
-    render() {
-        return (
-            <div className={constructorStyles.burger__item}>
-            <div className={constructorStyles.burger__dragdrop}></div>
-            <ConstructorElement 
-            type={this.props.type} 
-            isLocked={true}
-            text={this.props.text}
-            price={20}
-            thumbnail={this.props.img}
-            />
-          </div>
-        )
-    }
-}
-
-class Ingredient extends React.Component {
-    render() {
-        return (
-            <div className={constructorStyles.burger__item}>
-            <div className={constructorStyles.burger__dragdrop}>
-                <DragIcon type="primary" />
-            </div>
-              <ConstructorElement  
-            text={this.props.text}
-            price={this.props.price}
-            thumbnail={this.props.img}
-            />
-          </div>
-        )
-    }
-}
-
-class Summary extends React.Component {
-  render() {
-    return (
-      <div className={constructorStyles.burger__summary}>
-        <div className={constructorStyles.burger__totalprice}>
-        <p className={`${constructorStyles.burger__summarytext} text text_type_digits-medium`}>610</p>
+function Summary() {
+  return (
+    <div className={constructorStyles.burger__summary}>
+      <div className={constructorStyles.burger__totalprice}>
+        <p
+          className={`${constructorStyles.burger__summarytext} text text_type_digits-medium`}
+        >
+          610
+        </p>
         <CurrencyIcon type="primary" />
-        </div>
-        <Button type="primary" size="large">Оформить заказ</Button>
       </div>
-    )
-  }
+      <Button type="primary" size="large" htmlType="submit">
+        Оформить заказ
+      </Button>
+    </div>
+  );
 }
 
-export default class BurgerConstructor extends React.Component {
-    render() {
-      return (
-        <section className={constructorStyles.burger__section}>
-            <ul className={constructorStyles.burger__list}>
-            <Bun type="top" text={`${ingredients.find(item => item._id === '60666c42cc7b410027a1a9b1').name} (верх)`} price={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b1').price}img={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b1').image}/>
-            <div className={`${constructorStyles.burger__scroll} ${constructorStyles.burger__list}`}>
-            <Ingredient text={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b9').name} price={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b9').price} img={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b9').image}/>
-            <Ingredient text={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').name} price={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').price} img={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').image}/>
-            <Ingredient text={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').name} price={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').price} img={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').image}/>
-            <Ingredient text={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').name} price={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').price} img={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').image}/>
-            <Ingredient text={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').name} price={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').price} img={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').image}/>
-            <Ingredient text={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').name} price={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').price} img={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').image}/>
-            <Ingredient text={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').name} price={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').price} img={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').image}/>
-            <Ingredient text={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').name} price={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').price} img={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b4').image}/>
-            </div>
-            <Bun type="bottom" text={`${ingredients.find(item => item._id === '60666c42cc7b410027a1a9b1').name} (низ)`} price={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b1').price} img={ingredients.find(item => item._id === '60666c42cc7b410027a1a9b1').image}/>
-            </ul>
-            <Summary/>
-        </section>
-      )
-    }
-  }
+export default function BurgerConstructor() {
+  const ingredients = data.filter((ingredient) => ingredient.type !== "bun");
+  const bun = data.find((ingredient) => ingredient.type === "bun");
+  const bunTopName = `${bun.name} (верх)`;
+  const bunBottomName = `${bun.name} (низ)`;
+
+  return (
+    <section className={constructorStyles.burger__section}>
+      <ul className={constructorStyles.burger__list}>
+        <li className={constructorStyles.burger__item}>
+          <div className={constructorStyles.burger__dragdrop}></div>
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={bunTopName}
+            price={bun.price}
+            thumbnail={bun.image}
+            alt={bun.text}
+          />
+        </li>
+        <div
+          className={`${constructorStyles.burger__scroll} ${constructorStyles.burger__list}`}
+        >
+          {ingredients.map((item) => (
+            <li className={constructorStyles.burger__item} key={item._id}>
+              <div className={constructorStyles.burger__dragdrop}>
+                <DragIcon />
+              </div>
+              <ConstructorElement
+                type={item.type}
+                text={item.name}
+                price={item.price}
+                thumbnail={item.image}
+                alt={item.name}
+              />
+            </li>
+          ))}
+        </div>
+
+        <li className={constructorStyles.burger__item}>
+          <div className={constructorStyles.burger__dragdrop}></div>
+          <ConstructorElement
+            type="bottom"
+            key={bun._id}
+            isLocked={true}
+            text={bunBottomName}
+            price={bun.price}
+            thumbnail={bun.image}
+            alt={bun.text}
+          />
+        </li>
+      </ul>
+      <Summary />
+    </section>
+  );
+}
+
+ConstructorElement.propTypes = {
+  type: PropTypes.string.isRequired,
+  isLocked: PropTypes.bool,
+  text: PropTypes.string,
+  price: PropTypes.number,
+  thumbnail: PropTypes.string,
+};

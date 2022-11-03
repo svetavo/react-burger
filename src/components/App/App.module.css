@@ -1,0 +1,12 @@
+.maincontainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.page {
+  max-width: 1280px;
+  height: 1080;
+  margin: auto;
+  padding: 40px;
+}

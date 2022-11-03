@@ -1,35 +1,33 @@
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header__item {
-    list-style: none;
+  list-style: none;
 }
 
 .header__text {
-    color: rgba(242, 242, 243, 1);
+  color: rgba(242, 242, 243, 1);
 }
 
-
-
 .header__constructor {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  
 }
 
 .header__logo {
-    text-align: center;
-    width: 290px;
-
+  text-align: center;
+  width: 290px;
 }
 
 .header__button {
-    display: flex;
-    flex-direction: row;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
