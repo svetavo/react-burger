@@ -7,7 +7,6 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientsStyles from "./BurgerIngredients.module.css";
-import data from "../../utils/data";
 
 function IngridientsItem(props) {
   return (
@@ -31,10 +30,10 @@ function IngridientsItem(props) {
   );
 }
 
-export default function BurgerIngredients() {
-  const buns = data.filter((ingredient) => ingredient.type === "bun");
-  const sauces = data.filter((ingredient) => ingredient.type === "sauce");
-  const ingredients = data.filter((ingredient) => ingredient.type === "main");
+export default function BurgerIngredients({ingredientList}) {
+  const buns = ingredientList.filter((ingredient) => ingredient.type === "bun");
+  const sauces = ingredientList.filter((ingredient) => ingredient.type === "sauce");
+  const ingredients = ingredientList.filter((ingredient) => ingredient.type === "main");
 
   return (
     <div>

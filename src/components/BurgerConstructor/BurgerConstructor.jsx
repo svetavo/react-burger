@@ -7,7 +7,7 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import data from "../../utils/data";
+// import data from "../../utils/data";
 
 function Summary() {
   return (
@@ -27,9 +27,9 @@ function Summary() {
   );
 }
 
-export default function BurgerConstructor() {
+export default function BurgerConstructor({data}) {
   const ingredients = data.filter((ingredient) => ingredient.type !== "bun");
-  const bun = data.find((ingredient) => ingredient.type === "bun");
+  const bun =  data.find((ingredient) => ingredient.type === "bun");
   const bunTopName = `${bun.name} (верх)`;
   const bunBottomName = `${bun.name} (низ)`;
 
