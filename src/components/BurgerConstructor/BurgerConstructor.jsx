@@ -1,5 +1,5 @@
-import React from "react";
 import PropTypes from "prop-types";
+import { useState } from "react";
 import constructorStyles from "./BurgerConstructor.module.css";
 import {
   ConstructorElement,
@@ -7,9 +7,11 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-// import data from "../../utils/data";
+import Modal from "../Modal/Modal";
+import OrderDetails from "../OrderDetails/OrderDetails";
 
 function Summary() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={constructorStyles.burger__summary}>
       <div className={constructorStyles.burger__totalprice}>
@@ -20,16 +22,24 @@ function Summary() {
         </p>
         <CurrencyIcon type="primary" />
       </div>
-      <Button type="primary" size="large" htmlType="submit">
+      <Button
+        type="primary"
+        size="large"
+        htmlType="button"
+        onClick={() => setIsOpen(true)}
+      >
         Оформить заказ
       </Button>
+      <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>
+        <OrderDetails />
+      </Modal>
     </div>
   );
 }
 
-export default function BurgerConstructor({data}) {
+export default function BurgerConstructor({ data }) {
   const ingredients = data.filter((ingredient) => ingredient.type !== "bun");
-  const bun =  data.find((ingredient) => ingredient.type === "bun");
+  const bun = data.find((ingredient) => ingredient.type === "bun");
   const bunTopName = `${bun.name} (верх)`;
   const bunBottomName = `${bun.name} (низ)`;
 

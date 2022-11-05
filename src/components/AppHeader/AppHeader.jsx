@@ -3,9 +3,8 @@ import {
   BurgerIcon,
   ListIcon,
   ProfileIcon,
-  Button
+  Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
 import headerStyles from "./AppHeader.module.css";
 
 function HeaderLogo() {
@@ -22,7 +21,7 @@ function BurgerConstructorButton() {
       className={`${headerStyles.header__button} p-5`}
       type="secondary"
       size="large"
-      htmlType='button'
+      htmlType="button"
     >
       <BurgerIcon type="primary" />
       <p
@@ -40,7 +39,7 @@ function OrdersButton() {
       className={`${headerStyles.header__button} p-5`}
       type="secondary"
       size="large"
-      htmlType='button'
+      htmlType="button"
     >
       <ListIcon type="secondary" />
       <p className="ml-2 text text_type_main-default text_color_inactive">
@@ -56,7 +55,7 @@ function ProfileButton() {
       className={`${headerStyles.header__button} p-5`}
       type="secondary"
       size="large"
-      htmlType='button'
+      htmlType="button"
     >
       <ProfileIcon type="secondary" />
       <p className="ml-2 text text_type_main-default text_color_inactive">
