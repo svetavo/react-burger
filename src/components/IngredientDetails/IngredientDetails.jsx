@@ -24,7 +24,7 @@ export default function IngredientDetails({ item }) {
           <p className='m-1'>Углеводы, г</p>
           <p className="text text_type_digits-default">{item.carbohydrates}</p>
         </div>
-        </div>
+      </div>
       </div>
     </div>
   );

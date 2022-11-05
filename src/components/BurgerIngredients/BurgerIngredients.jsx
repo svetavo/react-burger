@@ -32,10 +32,10 @@ function IngridientsItem(props) {
         <div className={ingredientsStyles.ingredients__quantity}>
           <Counter count={1} size="default" />
         </div>
-        <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>
+      </div>
+      <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>
           <IngredientDetails item={props} />
         </Modal>
-      </div>
     </div>
   );
 }
