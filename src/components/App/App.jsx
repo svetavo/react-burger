@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "normalize.css";
 import appStyles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
@@ -16,18 +17,17 @@ export default function App() {
         if (res.ok) {
           return res.json();
         }
-        throw res;
+        throw new Error(`Ошибка ${res.status}`);
       })
-      .then(
-        ({ data }) => {
-          setIsLoaded(true);
-          setItems(data);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
+      .then(({ data }) => {
+        setItems(data);
+      })
+      .catch((error) => {
+        setError(error);
+      })
+      .finally(() => {
+        setIsLoaded(true);
+      });
   }, []);
 
   if (error) {
@@ -38,11 +38,9 @@ export default function App() {
     return (
       <div className={appStyles.page}>
         <AppHeader />
-        <main>
-          <div className={appStyles.maincontainer}>
-            <BurgerIngredients ingredientList={data} />
-            <BurgerConstructor data={data} />
-          </div>
+        <main className={appStyles.maincontainer}>
+          <BurgerIngredients ingredientList={data} />
+          <BurgerConstructor data={data} />
         </main>
       </div>
     );

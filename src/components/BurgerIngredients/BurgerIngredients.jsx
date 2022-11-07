@@ -2,7 +2,6 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
-
 import {
   Tab,
   CurrencyIcon,
@@ -34,8 +33,8 @@ function IngridientsItem(props) {
         </div>
       </div>
       <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>
-          <IngredientDetails item={props} />
-        </Modal>
+        <IngredientDetails item={props} />
+      </Modal>
     </div>
   );
 }

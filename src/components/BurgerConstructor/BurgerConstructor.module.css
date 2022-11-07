@@ -1,3 +1,5 @@
+@import url("../../utils/colors.css");
+
 .burger__list {
   list-style: none;
   display: flex;
@@ -14,13 +16,13 @@
 }
 
 .burger__scroll::-webkit-scrollbar {
-  background-color: rgba(47, 47, 55, 1);
+  background-color: var(--scrollbar-dark);
   height: 664px;
   width: 8px;
 }
 
 .burger__scroll::-webkit-scrollbar-thumb {
-  background-color: rgba(133, 133, 173, 1);
+  background-color: var(--scrollbar-light);
   height: 464px;
   width: 8px;
 }

@@ -1,3 +1,5 @@
+@import url("../../utils/colors.css");
+
 .header {
   display: flex;
   flex-direction: row;
@@ -10,13 +12,12 @@
 }
 
 .header__text {
-  color: rgba(242, 242, 243, 1);
+  color: var(--white-txt);
 }
 
 .header__constructor {
   display: flex;
   flex-direction: row;
-  
 }
 
 .header__logo {

@@ -1,15 +1,17 @@
+@import url("../../utils/colors.css");
+
 .order__number {
-    text-shadow: 1px 1px 1px #4C4CFF, 0 0 1em #4C4CFF;
+  text-shadow: 1px 1px 1px var(--text-shadow), 0 0 1em var(--text-shadow);
 }
 
 .order__pic {
-    width: 120px;
+  width: 120px;
 }
 
 .order__content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 80px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 80px 60px;
 }

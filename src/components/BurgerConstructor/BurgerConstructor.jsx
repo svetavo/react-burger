@@ -12,6 +12,7 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 
 function Summary() {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className={constructorStyles.burger__summary}>
       <div className={constructorStyles.burger__totalprice}>
