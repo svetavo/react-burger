@@ -2,7 +2,7 @@ import ingredientDetailsStyles from "./IngredientDetails.module.css";
 import PropTypes from "prop-types";
 import {ingredientTypes} from '../../utils/types'
 
-export default function IngredientDetails({ item }) {
+export default function IngredientDetails( {item} ) {
   return (
     <div>
       <h2

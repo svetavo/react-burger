@@ -8,9 +8,9 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientsStyles from "./BurgerIngredients.module.css";
-import {ingredientTypes} from "../../utils/types";
+import { ingredientTypes } from "../../utils/types";
 
-function IngridientsItem(props) {
+function IngridientsItem({ingredient}) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -21,20 +21,20 @@ function IngridientsItem(props) {
       >
         <img
           className={`${ingredientsStyles.ingredients__image} mb-1`}
-          src={props.image}
-          alt={props.name}
+          src={ingredient.image}
+          alt={ingredient.name}
         />
         <div className={`${ingredientsStyles.ingredients__price} mb-1`}>
-          <p className="text text_type_main-default mr-2">{props.price}</p>
+          <p className="text text_type_main-default mr-2">{ingredient.price}</p>
           <CurrencyIcon />
         </div>
-        <p className="text text_type_main-default">{props.name}</p>
+        <p className="text text_type_main-default">{ingredient.name}</p>
         <div className={ingredientsStyles.ingredients__quantity}>
           <Counter count={1} size="default" />
         </div>
       </div>
       <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>
-        <IngredientDetails item={props} />
+        <IngredientDetails item={ingredient} />
       </Modal>
     </div>
   );
@@ -62,6 +62,7 @@ export default function BurgerIngredients({ ingredientList }) {
         <div className={`${ingredientsStyles.ingredients__container}`}>
           {buns.map((bun) => (
             <IngridientsItem
+              ingredient={bun}
               key={bun._id}
               image={bun.image}
               image_large={bun.image_large}
@@ -79,6 +80,7 @@ export default function BurgerIngredients({ ingredientList }) {
         <div className={`${ingredientsStyles.ingredients__container}`}>
           {sauces.map((sauce) => (
             <IngridientsItem
+              ingredient={sauce}
               key={sauce._id}
               image={sauce.image}
               image_large={sauce.image_large}
@@ -96,6 +98,7 @@ export default function BurgerIngredients({ ingredientList }) {
         <div className={`${ingredientsStyles.ingredients__container}`}>
           {ingredients.map((item) => (
             <IngridientsItem
+              ingredient={item}
               key={item._id}
               image={item.image}
               image_large={item.image_large}
@@ -115,9 +118,9 @@ export default function BurgerIngredients({ ingredientList }) {
 }
 
 IngridientsItem.propTypes = {
-  props: ingredientTypes.isRequired
+  ingredient: ingredientTypes.isRequired,
 };
 
 BurgerIngredients.propTypes = {
-  ingredientList: PropTypes.arrayOf(ingredientTypes.isRequired).isRequired
+  ingredientList: PropTypes.arrayOf(ingredientTypes.isRequired).isRequired,
 };
