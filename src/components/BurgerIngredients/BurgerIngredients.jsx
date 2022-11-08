@@ -8,6 +8,7 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientsStyles from "./BurgerIngredients.module.css";
+import {ingredientTypes} from "../../utils/types";
 
 function IngridientsItem(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -114,12 +115,9 @@ export default function BurgerIngredients({ ingredientList }) {
 }
 
 IngridientsItem.propTypes = {
-  image: PropTypes.string,
-  image_large: PropTypes.string,
-  price: PropTypes.number,
-  name: PropTypes.string,
-  calories: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  proteins: PropTypes.number,
+  props: ingredientTypes.isRequired
+};
+
+BurgerIngredients.propTypes = {
+  ingredientList: PropTypes.arrayOf(ingredientTypes.isRequired).isRequired
 };

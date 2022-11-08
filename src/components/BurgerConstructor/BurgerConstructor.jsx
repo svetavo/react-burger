@@ -9,6 +9,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import ingredientTypes from "../../utils/types";
 
 function Summary() {
   const [isOpen, setIsOpen] = useState(false);
@@ -101,4 +102,8 @@ ConstructorElement.propTypes = {
   text: PropTypes.string,
   price: PropTypes.number,
   thumbnail: PropTypes.string,
+};
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(ingredientTypes.isRequired).isRequired
 };

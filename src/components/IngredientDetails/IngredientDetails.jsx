@@ -1,5 +1,6 @@
 import ingredientDetailsStyles from "./IngredientDetails.module.css";
 import PropTypes from "prop-types";
+import {ingredientTypes} from '../../utils/types'
 
 export default function IngredientDetails({ item }) {
   return (
@@ -50,12 +51,5 @@ export default function IngredientDetails({ item }) {
 }
 
 IngredientDetails.propTypes = {
-  image: PropTypes.string,
-  image_large: PropTypes.string,
-  price: PropTypes.number,
-  name: PropTypes.string,
-  calories: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  proteins: PropTypes.number,
+  item: ingredientTypes.isRequired
 };
