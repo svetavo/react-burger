@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import PropTypes from "prop-types";
-import Modal from "../Modal/Modal";
+import Modal from "../../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import {
   Tab,
@@ -8,37 +8,8 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientsStyles from "./BurgerIngredients.module.css";
-import { ingredientTypes } from "../../utils/types";
-
-function IngridientsItem({ingredient}) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div>
-      <div
-        className={`${ingredientsStyles.ingredients__item} pl-4 mb-8`}
-        onClick={() => setIsOpen(true)}
-      >
-        <img
-          className={`${ingredientsStyles.ingredients__image} mb-1`}
-          src={ingredient.image}
-          alt={ingredient.name}
-        />
-        <div className={`${ingredientsStyles.ingredients__price} mb-1`}>
-          <p className="text text_type_main-default mr-2">{ingredient.price}</p>
-          <CurrencyIcon />
-        </div>
-        <p className="text text_type_main-default">{ingredient.name}</p>
-        <div className={ingredientsStyles.ingredients__quantity}>
-          <Counter count={1} size="default" />
-        </div>
-      </div>
-      <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>
-        <IngredientDetails item={ingredient} />
-      </Modal>
-    </div>
-  );
-}
+import IngridientsItem from "./IngredientsItem/IngredientsItem";
+import { ingredientTypes } from "../../../utils/types";
 
 export default function BurgerIngredients({ ingredientList }) {
   const buns = ingredientList.filter((ingredient) => ingredient.type === "bun");

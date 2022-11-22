@@ -1,4 +1,4 @@
-@import url("../../utils/colors.css");
+@import url("../../../utils/colors.css");
 
 .burger__list {
   list-style: none;
@@ -40,23 +40,4 @@
 .burger__scroll {
   overflow-y: scroll;
   height: 464px;
-}
-
-.burger__summary {
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  align-items: center;
-  padding-top: 40px;
-}
-
-.burger__totalprice {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-right: 40px;
-}
-
-.burger__summarytext {
-  margin-right: 9.5px;
 }

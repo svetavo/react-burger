@@ -2,25 +2,20 @@ import { useEffect, useState } from "react";
 import "normalize.css";
 import appStyles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
+import BurgerConstructor from "../Constructor/BurgerConstructor/BurgerConstructor";
+import BurgerIngredients from "../Constructor/BurgerIngredients/BurgerIngredients";
+import { getIngredients } from "../../utils/api";
+import BurgerConstructorContext from "../../utils/context/BurgerContext";
 
 export default function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [data, setItems] = useState([]);
-  const baseURL = "https://norma.nomoreparties.space/api/ingredients";
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch(baseURL)
+    getIngredients()
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error(`Ошибка ${res.status}`);
-      })
-      .then(({ data }) => {
-        setItems(data);
+        setItems(res.data);
       })
       .catch((error) => {
         setError(error);
@@ -39,8 +34,10 @@ export default function App() {
       <div className={appStyles.page}>
         <AppHeader />
         <main className={appStyles.maincontainer}>
-          <BurgerIngredients ingredientList={data} />
-          <BurgerConstructor data={data} />
+          <BurgerIngredients ingredientList={items} />
+          <BurgerConstructorContext.Provider value={items}>
+            <BurgerConstructor />
+          </BurgerConstructorContext.Provider>
         </main>
       </div>
     );

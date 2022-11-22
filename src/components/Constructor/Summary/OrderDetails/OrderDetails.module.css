@@ -1,4 +1,4 @@
-@import url("../../utils/colors.css");
+@import url("../../../../utils/colors.css");
 
 .order__number {
   text-shadow: 1px 1px 1px var(--text-shadow), 0 0 1em var(--text-shadow);

@@ -1,49 +1,36 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import constructorStyles from "./BurgerConstructor.module.css";
 import {
   ConstructorElement,
   DragIcon,
-  CurrencyIcon,
-  Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../Modal/Modal";
-import OrderDetails from "../OrderDetails/OrderDetails";
-import {ingredientTypes} from "../../utils/types";
+import { ingredientTypes } from "../../../utils/types";
+import BurgerConstructorContext from "../../../utils/context/BurgerContext";
+import Summary from "../Summary/Summary";
 
-function Summary() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function BurgerConstructor() {
+  const data = useContext(BurgerConstructorContext);
+  const [addedIngredients, setAddedIngredients] = useState([]);
 
-  return (
-    <div className={constructorStyles.burger__summary}>
-      <div className={constructorStyles.burger__totalprice}>
-        <p
-          className={`${constructorStyles.burger__summarytext} text text_type_digits-medium`}
-        >
-          610
-        </p>
-        <CurrencyIcon type="primary" />
-      </div>
-      <Button
-        type="primary"
-        size="large"
-        htmlType="button"
-        onClick={() => setIsOpen(true)}
-      >
-        Оформить заказ
-      </Button>
-      <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>
-        <OrderDetails />
-      </Modal>
-    </div>
-  );
-}
-
-export default function BurgerConstructor({ data }) {
   const ingredients = data.filter((ingredient) => ingredient.type !== "bun");
   const bun = data.find((ingredient) => ingredient.type === "bun");
   const bunTopName = `${bun.name} (верх)`;
   const bunBottomName = `${bun.name} (низ)`;
+
+  const total = useMemo(
+    () =>
+      data[0].price * 2 +
+      data.reduce((sum, item) => {
+        if (item.type !== "bun") {
+          addedIngredients.push(item._id);
+          return sum + item.price;
+        } else {
+          return sum;
+        }
+      }, 0),
+    [data]
+  );
 
   return (
     <section className={constructorStyles.burger__section}>
@@ -91,7 +78,7 @@ export default function BurgerConstructor({ data }) {
           />
         </li>
       </ul>
-      <Summary />
+      <Summary total={total} addedIngredients={addedIngredients} />
     </section>
   );
 }
@@ -105,5 +92,5 @@ ConstructorElement.propTypes = {
 };
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientTypes.isRequired).isRequired
+  total: PropTypes.number,
 };

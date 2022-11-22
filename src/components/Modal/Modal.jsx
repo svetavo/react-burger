@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ReactPortal from "../ReactPortal/ReactPortal";
 import modalStyles from "./Modal.module.css";
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import ModalOverlay from "./ModalOverlay/ModalOverlay";
 import PropTypes from "prop-types";
 
 function Modal({ children, isOpen, handleClose }) {
