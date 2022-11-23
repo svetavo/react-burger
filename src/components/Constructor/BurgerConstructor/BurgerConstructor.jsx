@@ -5,7 +5,6 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientTypes } from "../../../utils/types";
 import BurgerConstructorContext from "../../../utils/context/BurgerContext";
 import Summary from "../Summary/Summary";
 

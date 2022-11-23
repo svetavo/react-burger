@@ -5,13 +5,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../Modal/Modal";
 import OrderDetails from "./OrderDetails/OrderDetails";
-import PropTypes from "prop-types";
 import summaryStyles from "./Summary.module.css";
 import { getOrder } from "../../../utils/api";
 
 export default function Summary({ total, addedIngredients }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [orderId, setOrderId] = useState("");
+  const [orderId, setOrderId] = useState(0);
 
   const handleOrder = () => {
     getOrder(addedIngredients).then((res) => {

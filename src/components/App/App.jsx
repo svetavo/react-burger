@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import "normalize.css";
+import { getIngredients } from "../../utils/api";
+import BurgerConstructorContext from "../../utils/context/BurgerContext";
 import appStyles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../Constructor/BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../Constructor/BurgerIngredients/BurgerIngredients";
-import { getIngredients } from "../../utils/api";
-import BurgerConstructorContext from "../../utils/context/BurgerContext";
 
 export default function App() {
   const [error, setError] = useState(null);
@@ -31,15 +31,15 @@ export default function App() {
     return <div>Загрузка...</div>;
   } else {
     return (
-      <div className={appStyles.page}>
-        <AppHeader />
-        <main className={appStyles.maincontainer}>
-          <BurgerIngredients ingredientList={items} />
-          <BurgerConstructorContext.Provider value={items}>
+      <BurgerConstructorContext.Provider value={items}>
+        <div className={appStyles.page}>
+          <AppHeader />
+          <main className={appStyles.maincontainer}>
+            <BurgerIngredients />
             <BurgerConstructor />
-          </BurgerConstructorContext.Provider>
-        </main>
-      </div>
+          </main>
+        </div>
+      </BurgerConstructorContext.Provider>
     );
   }
 }

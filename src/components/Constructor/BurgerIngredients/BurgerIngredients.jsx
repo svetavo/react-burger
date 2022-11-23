@@ -1,17 +1,17 @@
-import { useContext, useState } from "react";
-import PropTypes from "prop-types";
-import Modal from "../../Modal/Modal";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import {
-  Tab,
-  CurrencyIcon,
-  Counter,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { useContext, useState, useRef } from "react";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientsStyles from "./BurgerIngredients.module.css";
 import IngridientsItem from "./IngredientsItem/IngredientsItem";
 import { ingredientTypes } from "../../../utils/types";
+import BurgerConstructorContext from "../../../utils/context/BurgerContext";
 
-export default function BurgerIngredients({ ingredientList }) {
+export default function BurgerIngredients() {
+  const [current, setCurrent] = useState("Булки");
+  const bunsRef = useRef(null);
+  const saucesRef = useRef(null);
+  const ingRef = useRef(null);
+
+  const ingredientList = useContext(BurgerConstructorContext);
   const buns = ingredientList.filter((ingredient) => ingredient.type === "bun");
   const sauces = ingredientList.filter(
     (ingredient) => ingredient.type === "sauce"
@@ -20,67 +20,60 @@ export default function BurgerIngredients({ ingredientList }) {
     (ingredient) => ingredient.type === "main"
   );
 
+  const handleTabClick = (value, ref) => {
+    ref.current.scrollIntoView({ behavior: "smooth" });
+    setCurrent(value);
+  };
+
   return (
-    <div>
+    <div id="section">
       <p className="pt-10 pb-5 text text_type_main-large">Соберите бургер</p>
       <section className={ingredientsStyles.ingredients__menu}>
-        <Tab value="Булки">Булки</Tab>
-        <Tab value="Соусы">Соусы </Tab>
-        <Tab value="Начинка">Начинка </Tab>
+        <Tab
+          value="Булки"
+          active={current === "Булки"}
+          onClick={(value) => handleTabClick(value, bunsRef)}
+        >
+          Булки
+        </Tab>
+        <Tab
+          value="Соусы"
+          active={current === "Соусы"}
+          onClick={(value) => handleTabClick(value, saucesRef)}
+        >
+          Соусы{" "}
+        </Tab>
+        <Tab
+          value="Начинка"
+          active={current === "Начинка"}
+          onClick={(value) => handleTabClick(value, ingRef)}
+        >
+          Начинка{" "}
+        </Tab>
       </section>
       <section className={`${ingredientsStyles.ingredients__section} mb-10`}>
-        <p className="text text_type_main-medium mb-6 mt-10">Булки</p>
+        <p className="text text_type_main-medium mb-6 mt-10" ref={bunsRef}>
+          Булки
+        </p>
         <div className={`${ingredientsStyles.ingredients__container}`}>
           {buns.map((bun) => (
-            <IngridientsItem
-              ingredient={bun}
-              key={bun._id}
-              image={bun.image}
-              image_large={bun.image_large}
-              alt={bun.name}
-              price={bun.price}
-              name={bun.name}
-              calories={bun.calories}
-              fat={bun.fat}
-              carbohydrates={bun.carbohydrates}
-              proteins={bun.proteins}
-            />
+            <IngridientsItem ingredient={bun} key={bun._id} />
           ))}
         </div>
-        <p className="text text_type_main-medium mb-6 mt-10">Соусы</p>
+        <p className="text text_type_main-medium mb-6 mt-10" ref={saucesRef}>
+          Соусы
+        </p>
         <div className={`${ingredientsStyles.ingredients__container}`}>
           {sauces.map((sauce) => (
-            <IngridientsItem
-              ingredient={sauce}
-              key={sauce._id}
-              image={sauce.image}
-              image_large={sauce.image_large}
-              alt={sauce.name}
-              price={sauce.price}
-              name={sauce.name}
-              calories={sauce.calories}
-              fat={sauce.fat}
-              carbohydrates={sauce.carbohydrates}
-              proteins={sauce.proteins}
-            />
+            <IngridientsItem ingredient={sauce} key={sauce._id} />
           ))}
         </div>
-        <p className="text text_type_main-medium mb-6 mt-10">Начинки</p>
+        <p className="text text_type_main-medium mb-6 mt-10" ref={ingRef}>
+          Начинки
+        </p>
         <div className={`${ingredientsStyles.ingredients__container}`}>
           {ingredients.map((item) => (
-            <IngridientsItem
-              ingredient={item}
-              key={item._id}
-              image={item.image}
-              image_large={item.image_large}
-              alt={item.name}
-              price={item.price}
-              name={item.name}
-              calories={item.calories}
-              fat={item.fat}
-              carbohydrates={item.carbohydrates}
-              proteins={item.proteins}
-            />
+            <IngridientsItem ingredient={item} key={item._id} />
           ))}
         </div>
       </section>
@@ -90,8 +83,4 @@ export default function BurgerIngredients({ ingredientList }) {
 
 IngridientsItem.propTypes = {
   ingredient: ingredientTypes.isRequired,
-};
-
-BurgerIngredients.propTypes = {
-  ingredientList: PropTypes.arrayOf(ingredientTypes.isRequired).isRequired,
 };
