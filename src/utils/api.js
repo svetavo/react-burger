@@ -1,5 +1,8 @@
 const baseURL = "https://norma.nomoreparties.space/api";
 
+export const ingredientsURL = `${baseURL}/ingredients`;
+export const orderURL = `${baseURL}/order`;
+
 const checkResponse = (res) => {
   if (res.ok) {
     return res.json();

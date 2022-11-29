@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useContext, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import constructorStyles from "./BurgerConstructor.module.css";
 import {
   ConstructorElement,
@@ -9,27 +10,15 @@ import BurgerConstructorContext from "../../../utils/context/BurgerContext";
 import Summary from "../Summary/Summary";
 
 export default function BurgerConstructor() {
-  const data = useContext(BurgerConstructorContext);
-  const [addedIngredients, setAddedIngredients] = useState([]);
 
-  const ingredients = data.filter((ingredient) => ingredient.type !== "bun");
-  const bun = data.find((ingredient) => ingredient.type === "bun");
+  const ingredientsArr = useSelector((store) => store.ingredients.ingredients);
+  console.log(ingredientsArr)
+  const  {addedIngredients} = useSelector((store) => store.addedIngredients);
+
+  const ingredients = ingredientsArr.filter((ingredient) => ingredient.type !== "bun");
+  const bun = ingredientsArr.find((ingredient) => ingredient.type === "bun");
   const bunTopName = `${bun.name} (верх)`;
   const bunBottomName = `${bun.name} (низ)`;
-
-  const total = useMemo(
-    () =>
-      data[0].price * 2 +
-      data.reduce((sum, item) => {
-        if (item.type !== "bun") {
-          addedIngredients.push(item._id);
-          return sum + item.price;
-        } else {
-          return sum;
-        }
-      }, 0),
-    [data]
-  );
 
   return (
     <section className={constructorStyles.burger__section}>
@@ -77,19 +66,19 @@ export default function BurgerConstructor() {
           />
         </li>
       </ul>
-      <Summary total={total} addedIngredients={addedIngredients} />
+      <Summary  addedIngredients={addedIngredients} />
     </section>
   );
 }
 
-ConstructorElement.propTypes = {
-  type: PropTypes.string.isRequired,
-  isLocked: PropTypes.bool,
-  text: PropTypes.string,
-  price: PropTypes.number,
-  thumbnail: PropTypes.string,
-};
+// ConstructorElement.propTypes = {
+//   type: PropTypes.string.isRequired,
+//   isLocked: PropTypes.bool,
+//   text: PropTypes.string,
+//   price: PropTypes.number,
+//   thumbnail: PropTypes.string,
+// };
 
-BurgerConstructor.propTypes = {
-  total: PropTypes.number,
-};
+// BurgerConstructor.propTypes = {
+//   total: PropTypes.number,
+// };

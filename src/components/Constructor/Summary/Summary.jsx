@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   CurrencyIcon,
   Button,
@@ -6,16 +7,18 @@ import {
 import Modal from "../../Modal/Modal";
 import OrderDetails from "./OrderDetails/OrderDetails";
 import summaryStyles from "./Summary.module.css";
-import { getOrder } from "../../../utils/api";
+// import { getOrder } from "../../../utils/api";
+import { getOrderNumber } from "../../../services/actions/orderActions";
 
-export default function Summary({ total, addedIngredients }) {
+export default function Summary() {
   const [isOpen, setIsOpen] = useState(false);
-  const [orderId, setOrderId] = useState(0);
+  const dispatch = useDispatch();
+  const {total} = useSelector(store => store.total);
+  const {addedIngredients} = useSelector(store => store.addedIngredients)
+
 
   const handleOrder = () => {
-    getOrder(addedIngredients).then((res) => {
-      setOrderId(res.order.number);
-    });
+    dispatch(getOrderNumber(addedIngredients));
     setIsOpen(true);
   };
 
@@ -38,7 +41,7 @@ export default function Summary({ total, addedIngredients }) {
         Оформить заказ
       </Button>
       <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>
-        <OrderDetails orderNumber={orderId} />
+        <OrderDetails />
       </Modal>
     </div>
   );

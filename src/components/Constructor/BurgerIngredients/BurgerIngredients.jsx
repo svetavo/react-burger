@@ -1,9 +1,9 @@
-import { useContext, useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientsStyles from "./BurgerIngredients.module.css";
 import IngridientsItem from "./IngredientsItem/IngredientsItem";
 import { ingredientTypes } from "../../../utils/types";
-import BurgerConstructorContext from "../../../utils/context/BurgerContext";
 
 export default function BurgerIngredients() {
   const [current, setCurrent] = useState("Булки");
@@ -11,7 +11,8 @@ export default function BurgerIngredients() {
   const saucesRef = useRef(null);
   const ingRef = useRef(null);
 
-  const ingredientList = useContext(BurgerConstructorContext);
+  const ingredientList = useSelector((store) => store.ingredients.ingredients);
+
   const buns = ingredientList.filter((ingredient) => ingredient.type === "bun");
   const sauces = ingredientList.filter(
     (ingredient) => ingredient.type === "sauce"
