@@ -1,20 +1,42 @@
 const initialState = {
-  addedBuns: [],
-  addedIngredients: [],
+  buns: [],
+  ingredients: [],
 };
 
 export const constructorReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_BUN":
-      return { ...state, addedBuns: action.item };
-    case "ADD_INGREDIENT":
-      return { ...state, addedIngredients: action.item };
-    case "REMOVE_INGREDIENT":
+    case "ADD_BUN": {
       return {
-        addedingredients: state.addedIngredients.filter(
-          (item, id) => id !== action.id
-        ),
+        ...state,
+        buns: [action.bun],
       };
+    }
+
+    case "ADD_INGREDIENT": {
+      const newArr = [...state.ingredients];
+      const newIngredient = { ...action.ingredient };
+      newIngredient.id = action.id;
+      newArr.push(newIngredient);
+      return {
+        ...state,
+        ingredients: newArr,
+      };
+    }
+
+    // case "REMOVE_INGREDIENT":
+    //   return {
+    //     ...state,
+    //     ingredients: state.ingredients.filter(
+    //       (ingredient) => ingredient._id !== action._id
+    //     ),
+    //   };
+
+    case "MOVE_INGREDIENTS": {
+      return {
+        ...state,
+        ingredients: [...action.sortedArray],
+      };
+    }
     default:
       return state;
   }
@@ -27,12 +49,10 @@ const initialPrice = {
 export const totalPriceReducer = (state = initialPrice, action) => {
   switch (action.type) {
     case "INCREMENT":
-      return { ...state, price: state.price + action.price };
+      return { ...state, total: state.total + action.payload.item };
     case "DECREMENT":
-      return { ...state, price: state.price - action.price };
+      return { ...state, total: state.total - action.payload.item };
     default:
       return state;
   }
 };
-
-

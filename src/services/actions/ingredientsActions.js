@@ -17,10 +17,8 @@ export const loadIngredients = () => {
       .catch((error) =>
         dispatch({
           type: "FETCH_INGREDIENTS_ERROR",
-          error: error.message
+          error: error.message,
         })
-      )
+      );
   };
 };
-
-

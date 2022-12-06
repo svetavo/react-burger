@@ -3,7 +3,7 @@ const initialState = {
   ingredientsRequest: false,
   ingredientsFail: false,
   isLoaded: false,
-  error: null
+  error: null,
 };
 
 const ingredientsReducer = (state = initialState, action) => {
@@ -27,7 +27,7 @@ const ingredientsReducer = (state = initialState, action) => {
         ...state,
         ingredientsRequest: false,
         ingredientsFail: true,
-        error: action.error
+        error: action.error,
       };
     default:
       return state;
