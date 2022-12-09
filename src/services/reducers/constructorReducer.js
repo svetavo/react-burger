@@ -1,4 +1,12 @@
-import update from "immutability-helper";
+import {
+  ADD_BUN,
+  ADD_INGREDIENT,
+  DECREMENT,
+  INCREMENT,
+  REMOVE_INGREDIENT,
+  SORT_INGREDIENTS,
+} from "../actions/constructorActions";
+
 const initialState = {
   buns: [],
   ingredients: [],
@@ -6,14 +14,14 @@ const initialState = {
 
 export const constructorReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_BUN": {
+    case ADD_BUN: {
       return {
         ...state,
         buns: [action.bun],
       };
     }
 
-    case "ADD_INGREDIENT": {
+    case ADD_INGREDIENT: {
       const newArr = [...state.ingredients];
       const newIngredient = { ...action.ingredient };
       newIngredient.uuid = action.uuid;
@@ -24,7 +32,7 @@ export const constructorReducer = (state = initialState, action) => {
       };
     }
 
-    case "REMOVE_INGREDIENT":
+    case REMOVE_INGREDIENT:
       return {
         ...state,
         ingredients: state.ingredients.filter(
@@ -32,7 +40,7 @@ export const constructorReducer = (state = initialState, action) => {
         ),
       };
 
-    case "SORT_INGREDIENTS": {
+    case SORT_INGREDIENTS: {
       return { ...state, ingredients: [...action.sortedArray] };
     }
 
@@ -47,9 +55,9 @@ const initialPrice = {
 
 export const totalPriceReducer = (state = initialPrice, action) => {
   switch (action.type) {
-    case "INCREMENT":
+    case INCREMENT:
       return { ...state, total: state.total + action.payload.item };
-    case "DECREMENT":
+    case DECREMENT:
       return { ...state, total: state.total - action.payload.item };
     default:
       return state;

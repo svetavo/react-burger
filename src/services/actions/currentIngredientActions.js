@@ -1,5 +1,5 @@
-const ADD_CURRENT = "ADD_CURRENT";
-const REMOVE_CURRENT = "REMOVE_CURRENT";
+export const ADD_CURRENT = "ADD_CURRENT";
+export const REMOVE_CURRENT = "REMOVE_CURRENT";
 
 export const addCurrent = (item) => {
   return {

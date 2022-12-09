@@ -13,15 +13,23 @@ import {
   removeCurrent,
 } from "../../../../services/actions/currentIngredientActions";
 import { useDrag } from "react-dnd";
+import { useSelector } from "react-redux";
 
 export default function IngridientsItem({ ingredient }) {
   const [isOpen, setIsOpen] = useState(false);
+
   const dispatch = useDispatch();
 
   const [, dragRef] = useDrag({
     type: "ingredient",
     item: ingredient,
   });
+
+  const buns = useSelector((store) => store.addedIngredients.buns);
+  const ingredients = useSelector(
+    (store) => store.addedIngredients.ingredients
+  );
+  const addedIngredients = [...buns, ...ingredients];
 
   const clickHandler = (ingredient) => {
     dispatch(addCurrent(ingredient));
@@ -32,6 +40,10 @@ export default function IngridientsItem({ ingredient }) {
     dispatch(removeCurrent());
     setIsOpen(false);
   };
+
+  const counter = addedIngredients.filter(
+    (item) => item._id === ingredient._id
+  ).length;
 
   return (
     <div>
@@ -51,7 +63,7 @@ export default function IngridientsItem({ ingredient }) {
         </div>
         <p className="text text_type_main-default">{ingredient.name}</p>
         <div className={ingredientsStyles.ingredients__quantity}>
-          <Counter count={""} size="default" />
+          {counter !== 0 ? <Counter count={counter} size="default" /> : <></>}
         </div>
       </div>
       <Modal handleClose={() => handleCloseModal()} isOpen={isOpen}>
