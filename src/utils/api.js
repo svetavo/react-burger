@@ -10,14 +10,18 @@ const checkResponse = (res) => {
   throw new Error(`Ошибка ${res.status}`);
 };
 
+const request = (url, options) => {
+  return fetch(url, options).then(checkResponse);
+};
+
 export const getIngredients = async () => {
-  return fetch(`${baseURL}/ingredients`).then((res) => checkResponse(res));
+  return request(`${baseURL}/ingredients`);
 };
 
 export const getOrder = async (addedIngredients) => {
-  return fetch(`${baseURL}/orders`, {
+  return request(`${baseURL}/orders`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ ingredients: addedIngredients }),
-  }).then((res) => checkResponse(res));
+  });
 };

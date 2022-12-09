@@ -1,13 +1,18 @@
 import { useSelector, useDispatch } from "react-redux";
 import constructorStyles from "./BurgerConstructor.module.css";
-import {
-  ConstructorElement,
-  DragIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import Summary from "../Summary/Summary";
 import { useDrop } from "react-dnd";
-import { incrementPrice } from "../../../services/actions/constructorActions";
+import {
+  incrementPrice,
+  decrementPrice,
+  ADD_BUN,
+  ADD_INGREDIENT,
+  SORT_INGREDIENTS,
+  REMOVE_INGREDIENT,
+} from "../../../services/actions/constructorActions";
 import { v4 as uuidv4 } from "uuid";
+import BurgerConstructorItem from "./BurgerConstructorItem/BurgerConstructorItem";
 
 export default function BurgerConstructor() {
   const buns = useSelector((store) => store.addedIngredients.buns);
@@ -17,11 +22,31 @@ export default function BurgerConstructor() {
 
   const dispatch = useDispatch();
 
+  const priceDecrement = (item) => {
+    dispatch(decrementPrice(item.price));
+  };
+
+  const priceIncerement = (item) => {
+    if (item.type !== "bun") {
+      dispatch(incrementPrice(item.price));
+    } else {
+      dispatch(incrementPrice(item.price * 2));
+    }
+  };
+
+  const handleDelete = (item) => {
+    dispatch({
+      type: REMOVE_INGREDIENT,
+      uuid: item.uuid,
+    });
+    priceDecrement(item);
+  };
+
   const [{ isOver }, dropRef] = useDrop({
     accept: "ingredient",
     drop(ingredient) {
       handleDropIngr(ingredient);
-      dispatch(incrementPrice(ingredient.price));
+      priceIncerement(ingredient);
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -31,34 +56,35 @@ export default function BurgerConstructor() {
   const handleDropIngr = (ingredient) => {
     if (ingredient.type === "bun") {
       dispatch({
-        type: "ADD_BUN",
+        type: ADD_BUN,
         bun: ingredient,
+        uuid: uuidv4(),
       });
     } else {
       dispatch({
-        type: "ADD_INGREDIENT",
+        type: ADD_INGREDIENT,
         ingredient: ingredient,
-        _id: uuidv4(),
+        uuid: uuidv4(),
       });
     }
   };
 
-  const handleMove = (dragIndex, hoverIndex) => {
+  const moveCard = (dragIndex, hoverIndex) => {
     const dragIngredient = ingredients[dragIndex];
     if (dragIngredient) {
-      const newArray = [...ingredients];
-      newArray.splice(dragIndex, 1);
-      newArray.splice(hoverIndex, 0, dragIngredient);
-      dispatch({ type: "MOVE_INGREDIENTS", sortedArray: newArray });
+      const newIngredients = [...ingredients];
+      newIngredients.splice(dragIndex, 1);
+      newIngredients.splice(hoverIndex, 0, dragIngredient);
+      dispatch({ type: SORT_INGREDIENTS, sortedArray: newIngredients });
     }
   };
 
   return (
-    <section className={constructorStyles.burger__section} ref={dropRef}>
+    <section className={constructorStyles.burger__section}>
       <ul className={constructorStyles.burger__list}>
-        <li className={constructorStyles.burger__item}>
-          <div className={constructorStyles.burger__dragdrop}></div>
-          {buns.map((bun) => (
+        {buns.map((bun) => (
+          <li className={constructorStyles.burger__item} key={bun._id}>
+            <div className={constructorStyles.burger__dragdrop}></div>
             <ConstructorElement
               type="top"
               isLocked={true}
@@ -67,30 +93,25 @@ export default function BurgerConstructor() {
               thumbnail={bun.image}
               alt={bun.text}
             />
-          ))}
-        </li>
+          </li>
+        ))}
         <div
           className={`${constructorStyles.burger__scroll} ${constructorStyles.burger__list}`}
+          ref={dropRef}
         >
-          {ingredients.map((item) => (
-            <li className={constructorStyles.burger__item} key={item._id}>
-              <div className={constructorStyles.burger__dragdrop}>
-                <DragIcon />
-              </div>
-              <ConstructorElement
-                type={item.type}
-                text={item.name}
-                price={item.price}
-                thumbnail={item.image}
-                alt={item.name}
-                id={item.id}
-                handleMove={handleMove}
-              />
-            </li>
+          {ingredients.map((item, index) => (
+            <BurgerConstructorItem
+              item={item}
+              index={index}
+              handleDelete={handleDelete}
+              key={item.uuid}
+              moveCard={moveCard}
+            />
           ))}
         </div>
+
         {buns.map((bun) => (
-          <li className={constructorStyles.burger__item}>
+          <li className={constructorStyles.burger__item} key={bun._id}>
             <div className={constructorStyles.burger__dragdrop}></div>
             <ConstructorElement
               type="bottom"

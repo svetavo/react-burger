@@ -1,22 +1,26 @@
 import { getIngredients } from "../../utils/api";
 
+const FETCH_INGREDIENTS_REQUEST = "FETCH_INGREDIENTS_REQUEST";
+const FETCH_INGREDIENTS_OK = "FETCH_INGREDIENTS_OK";
+const FETCH_INGREDIENTS_ERROR = "FETCH_INGREDIENTS_ERROR";
+
 // ingredients:
 
 export const loadIngredients = () => {
   return function (dispatch) {
     dispatch({
-      type: "FETCH_INGREDIENTS_REQUEST",
+      type: FETCH_INGREDIENTS_REQUEST,
     });
     getIngredients()
       .then((res) => {
         dispatch({
-          type: "FETCH_INGREDIENTS_OK",
+          type: FETCH_INGREDIENTS_OK,
           ingredients: res.data,
         });
       })
       .catch((error) =>
         dispatch({
-          type: "FETCH_INGREDIENTS_ERROR",
+          type: FETCH_INGREDIENTS_ERROR,
           error: error.message,
         })
       );

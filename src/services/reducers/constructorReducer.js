@@ -1,3 +1,4 @@
+import update from "immutability-helper";
 const initialState = {
   buns: [],
   ingredients: [],
@@ -15,7 +16,7 @@ export const constructorReducer = (state = initialState, action) => {
     case "ADD_INGREDIENT": {
       const newArr = [...state.ingredients];
       const newIngredient = { ...action.ingredient };
-      newIngredient.id = action.id;
+      newIngredient.uuid = action.uuid;
       newArr.push(newIngredient);
       return {
         ...state,
@@ -23,20 +24,18 @@ export const constructorReducer = (state = initialState, action) => {
       };
     }
 
-    // case "REMOVE_INGREDIENT":
-    //   return {
-    //     ...state,
-    //     ingredients: state.ingredients.filter(
-    //       (ingredient) => ingredient._id !== action._id
-    //     ),
-    //   };
-
-    case "MOVE_INGREDIENTS": {
+    case "REMOVE_INGREDIENT":
       return {
         ...state,
-        ingredients: [...action.sortedArray],
+        ingredients: state.ingredients.filter(
+          (ingredient) => ingredient.uuid !== action.uuid
+        ),
       };
+
+    case "SORT_INGREDIENTS": {
+      return { ...state, ingredients: [...action.sortedArray] };
     }
+
     default:
       return state;
   }
