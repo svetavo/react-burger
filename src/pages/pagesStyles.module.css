@@ -1,0 +1,46 @@
+.span {
+  color: #4c4cff;
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.area {
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileContainer {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  justify-content: space-between;
+  margin-top: 120px;
+}
+
+.menu {
+  width: 320px;
+  height: 64px;
+  cursor: pointer;
+}
+
+.userinfo {
+  background-color: #2f2f37;
+  border-radius: 40px;
+  width: 480px;
+  padding: 8px 24px;
+  margin-bottom: 24px;
+}
+
+.text {
+  color: darkgray;
+  width: 320px;
+}

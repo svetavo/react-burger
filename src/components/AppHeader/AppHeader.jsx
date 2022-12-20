@@ -6,77 +6,103 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import headerStyles from "./AppHeader.module.css";
+import { useHistory, NavLink } from "react-router-dom";
+import { useState } from "react";
 
 function HeaderLogo() {
   return <Logo />;
 }
 
-function HeaderItem(props) {
-  return <li className={headerStyles.header__item}>{props.children}</li>;
-}
-
-function BurgerConstructorButton() {
-  return (
-    <Button
-      className={`${headerStyles.header__button} p-5`}
-      type="secondary"
-      size="large"
-      htmlType="button"
-    >
-      <BurgerIcon type="primary" />
-      <p
-        className={`${headerStyles.header__text} ml-2 text text_type_main-default`}
-      >
-        Конструктор
-      </p>
-    </Button>
-  );
-}
-
-function OrdersButton() {
-  return (
-    <Button
-      className={`${headerStyles.header__button} p-5`}
-      type="secondary"
-      size="large"
-      htmlType="button"
-    >
-      <ListIcon type="secondary" />
-      <p className="ml-2 text text_type_main-default text_color_inactive">
-        Лента заказов
-      </p>
-    </Button>
-  );
-}
-
-function ProfileButton() {
-  return (
-    <Button
-      className={`${headerStyles.header__button} p-5`}
-      type="secondary"
-      size="large"
-      htmlType="button"
-    >
-      <ProfileIcon type="secondary" />
-      <p className="ml-2 text text_type_main-default text_color_inactive">
-        Личный кабинет
-      </p>
-    </Button>
-  );
-}
-
 export default function AppHeader() {
+  const [activeLink, setActiveLink] = useState("constructor");
+
+  const history = useHistory();
+
+  const onClickProfile = () => {
+    setActiveLink("profile");
+    history.replace({ pathname: "/profile" });
+  };
+
+  const onClickConstructor = () => {
+    setActiveLink("constructor");
+    history.replace({ pathname: "/" });
+  };
+
+  const onClickOrders = () => {
+    setActiveLink("orders");
+  };
+
   return (
     <header>
       <nav className={`${headerStyles.header} p-4`}>
         <div className={headerStyles.header__constructor}>
-          <HeaderItem children={<BurgerConstructorButton />} />
-          <HeaderItem children={<OrdersButton />} />
+          <li className={headerStyles.header__item}>
+            <NavLink
+              to="/"
+              className={`${headerStyles.header__button} p-5`}
+              onClick={onClickConstructor}
+            >
+              {" "}
+              <BurgerIcon
+                type={activeLink === "constructor" ? "primary" : "secondary"}
+              />
+              <p
+                className={`${
+                  activeLink === "constructor"
+                    ? headerStyles.header__text
+                    : "text_color_inactive"
+                }  ml-2 text text_type_main-default`}
+              >
+                Конструктор
+              </p>
+            </NavLink>
+          </li>
+          <li className={headerStyles.header__item}>
+            <NavLink
+              to="/"
+              className={`${headerStyles.header__button} p-5`}
+              onClick={onClickOrders}
+            >
+              {" "}
+              <ListIcon
+                type={activeLink === "orders" ? "primary" : "secondary"}
+              />{" "}
+              <p
+                className={`${
+                  activeLink === "orders"
+                    ? headerStyles.header__text
+                    : "text_color_inactive"
+                } ml-2 text text_type_main-default `}
+              >
+                Лента заказов{" "}
+              </p>
+            </NavLink>
+          </li>
         </div>
         <div className={headerStyles.header__logo}>
           <HeaderLogo />
         </div>
-        <HeaderItem children={<ProfileButton />} />
+        <li className={headerStyles.header__item}>
+          <NavLink
+            to="/profile"
+            className={`${headerStyles.header__button} p-5`}
+            onClick={onClickProfile}
+          >
+            {" "}
+            <ProfileIcon
+              type={activeLink === "profile" ? "primary" : "secondary"}
+            />
+            <p
+              className={`${
+                activeLink === "profile"
+                  ? headerStyles.header__text
+                  : "text_color_inactive"
+              } ml-2 text text_type_main-default `}
+            >
+              Личный кабинет
+            </p>
+          </NavLink>
+        </li>{" "}
       </nav>
     </header>
   );
