@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../../../Modal/Modal";
 import IngredientDetails from "../../IngredientDetails/IngredientDetails";
 import { ingredientTypes } from "../../../../utils/types";
@@ -14,11 +14,12 @@ import {
 } from "../../../../services/actions/currentIngredientActions";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
+import {useHistory} from "react-router-dom"
 
 export default function IngridientsItem({ ingredient }) {
   const [isOpen, setIsOpen] = useState(false);
-
   const dispatch = useDispatch();
+  const history = useHistory()
 
   const [, dragRef] = useDrag({
     type: "ingredient",
@@ -32,8 +33,8 @@ export default function IngridientsItem({ ingredient }) {
   const addedIngredients = [...buns, ...ingredients];
 
   const clickHandler = (ingredient) => {
-    dispatch(addCurrent(ingredient));
-    setIsOpen(true);
+    dispatch(addCurrent(ingredient))
+    setIsOpen(true)
   };
 
   const handleCloseModal = () => {

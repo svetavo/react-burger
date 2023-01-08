@@ -1,36 +1,59 @@
 import styles from "./pagesStyles.module.css";
 import { useHistory } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getUser, userLogout } from "../services/actions/userActions";
+import { useSelector, useDispatch } from "react-redux";
 
 const ProfilePage = () => {
-  const [activeLinkProfile, setActiveLinkProfile] = useState('profile')
+  const [activeLinkProfile, setActiveLinkProfile] = useState("profile");
   const history = useHistory();
+  const dispatch = useDispatch();
+  const token = useSelector((store) => store.user.refreshToken);
+  const userName = useSelector((store) => store.user.name);
+  const userEmail = useSelector((store) => store.user.email);
+
+  useEffect(() => {
+    dispatch(getUser(token));
+  }, []);
+
   const handleOrdersClick = (id) => {
-    history.replace({ pathname: `/profile/orders/${id}`});
-    setActiveLinkProfile("orders")
-  }
+    history.replace({ pathname: `/profile/orders/${id}` });
+    setActiveLinkProfile("orders");
+  };
   const handleInfoClick = () => {
     history.replace({ pathname: "/profile" });
-    setActiveLinkProfile("profile")
-  }
+    setActiveLinkProfile("profile");
+  };
   const handleExitClick = () => {
-    setActiveLinkProfile("exit")
-  }
+    setActiveLinkProfile("exit");
+    dispatch(userLogout(token))
+  };
 
   return (
     <div>
       <div className={styles.profileContainer}>
         <div>
-          <div className={`${activeLinkProfile === 'profile' ? ' ' : "text_color_inactive"} ${styles.menu} text text_type_main-medium `} onClick={handleInfoClick}>
+          <div
+            className={`${
+              activeLinkProfile === "profile" ? " " : "text_color_inactive"
+            } ${styles.menu} text text_type_main-medium `}
+            onClick={handleInfoClick}
+          >
             Профиль
           </div>
           <div
-            className={`${activeLinkProfile === 'orders' ? ' ' : "text_color_inactive"} ${styles.menu} text text_type_main-medium  `} onClick={handleOrdersClick}
+            className={`${
+              activeLinkProfile === "orders" ? " " : "text_color_inactive"
+            } ${styles.menu} text text_type_main-medium  `}
+            onClick={handleOrdersClick}
           >
             История заказов
           </div>
           <div
-            className={`${activeLinkProfile === 'exit' ? ' ' : "text_color_inactive"} ${styles.menu} text text_type_main-medium mb-20`} onClick={handleExitClick}
+            className={`${
+              activeLinkProfile === "exit" ? " " : "text_color_inactive"
+            } ${styles.menu} text text_type_main-medium mb-20`}
+            onClick={handleExitClick}
           >
             Выход
           </div>
@@ -42,7 +65,7 @@ const ProfilePage = () => {
           <div className={styles.userinfo}>
             <p className="text text_type_main-small text_color_inactive">Имя</p>
             <p className="text text_type_main-small text_color_inactive">
-              Марк
+              {userName}
             </p>
           </div>
           <div className={styles.userinfo}>
@@ -50,7 +73,7 @@ const ProfilePage = () => {
               Логин
             </p>
             <p className="text text_type_main-small text_color_inactive">
-              mail@stellar.burgers
+              {userEmail}{" "}
             </p>
           </div>
           <div className={styles.userinfo}>

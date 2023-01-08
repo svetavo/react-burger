@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientsStyles from "./BurgerIngredients.module.css";
@@ -6,7 +6,7 @@ import IngridientsItem from "./IngredientsItem/IngredientsItem";
 import { ingredientTypes } from "../../../utils/types";
 import { useInView } from "react-intersection-observer";
 
-export default function BurgerIngredients() {
+export default function BurgerIngredients({handleOpen, handleClose}) {
   const { ref: bunsRefVisible, inView: bunsVisible } = useInView();
   const { ref: saucesRefVisible, inView: saucesVisible } = useInView();
   const { ref: ingredientsRefVisible, inView: ingredientsVisible } =
@@ -81,7 +81,7 @@ export default function BurgerIngredients() {
           ref={bunsRefVisible}
         >
           {buns.map((bun) => (
-            <IngridientsItem ingredient={bun} key={bun._id} />
+            <IngridientsItem ingredient={bun} key={bun._id} handleOpen={handleOpen} handleClose={handleClose}/>
           ))}
         </div>
         <p className="text text_type_main-medium mb-6 mt-10" ref={saucesRef}>
@@ -92,7 +92,7 @@ export default function BurgerIngredients() {
           ref={saucesRefVisible}
         >
           {sauces.map((sauce) => (
-            <IngridientsItem ingredient={sauce} key={sauce._id} />
+            <IngridientsItem ingredient={sauce} key={sauce._id} handleOpen={handleOpen} handleClose={handleClose}/>
           ))}
         </div>
         <p className="text text_type_main-medium mb-6 mt-10" ref={ingRef}>
@@ -103,7 +103,7 @@ export default function BurgerIngredients() {
           ref={ingredientsRefVisible}
         >
           {ingredients.map((item) => (
-            <IngridientsItem ingredient={item} key={item._id} />
+            <IngridientsItem ingredient={item} key={item._id} handleOpen={handleOpen} handleClose={handleClose}/>
           ))}
         </div>
       </section>

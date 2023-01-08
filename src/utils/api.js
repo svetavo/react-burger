@@ -6,9 +6,10 @@ export const orderURL = `${baseURL}/orders`;
 export const passwordResetURL = `${baseURL}/password-reset`;
 export const newUserURL = `${baseAuthURL}/register`;
 export const newPassURL = `${passwordResetURL}/reset`;
-export const loginURL=`${baseAuthURL}/login`;
-export const logoutURL =`${baseAuthURL}/logout`;
-export const tokenURL =`${baseAuthURL}/token`;
+export const loginURL = `${baseAuthURL}/login`;
+export const logoutURL = `${baseAuthURL}/logout`;
+export const tokenURL = `${baseAuthURL}/token`;
+export const profileEndpointURL = `${baseAuthURL}/user`;
 
 // handlers
 const checkResponse = (res) => {
@@ -36,46 +37,45 @@ export const getOrder = async (addedIngredients) => {
 };
 
 // password
-export const passwordReset = async () => {
+export const passwordReset = async (email) => {
   return request(passwordResetURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: " " }),
+    body: JSON.stringify({ email: email }),
   });
 };
 
-
-export const newPass = async () => {
+export const newPass = async (password, token) => {
   return request(newPassURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      password: "",
-      token: "",
+      password: password,
+      token: token,
     }),
   });
 };
 
 //authorisation
-export const newUserReg = async () => {
+export const newUserReg = async ({email, password, name}) => {
   return request(newUserURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      email: "test-data@yandex.ru",
-      password: "password",
-      name: "Username",
+      email: email,
+      password: password,
+      name: name,
     }),
   });
 };
 
-export const login = async () => {
-  return request(newUserURL, {
+export const login = async (email, password) => {
+  return request(loginURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      email: "",
-      password: "",
+      email: email,
+      password: password,
     }),
   });
 };
@@ -90,13 +90,36 @@ export const tokenRefresh = async (refreshToken) => {
   });
 };
 
-export const logout = async (refreshToken) => {
+export const logout = async (token) => {
   return request(logoutURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      token: `значение ${refreshToken}`,
+      token: token,
     }),
   });
 };
 
+export const userGetInfo = async () => {
+  return request(profileEndpointURL, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: window.localStorage.getItem("accessToken"),
+    },
+  });
+};
+
+export const userPatchInfo = async (email, name) => {
+  return request(profileEndpointURL, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: window.localStorage.getItem("accessToken"),
+    },
+    body: JSON.stringify({
+      email: email,
+      name: name,
+    }),
+  });
+};

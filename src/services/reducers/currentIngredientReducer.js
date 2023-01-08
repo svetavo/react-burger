@@ -4,7 +4,7 @@ import {
 } from "../actions/currentIngredientActions";
 
 const initialState = {
-  currentIngredient: null,
+  currentIngredient: '',
 };
 
 export const currentIngredientReducer = (state = initialState, action) => {
@@ -12,7 +12,7 @@ export const currentIngredientReducer = (state = initialState, action) => {
     case ADD_CURRENT:
       return { ...state, currentIngredient: action.item };
     case REMOVE_CURRENT:
-      return { ...state, currentIngredient: null };
+      return { ...state, currentIngredient: '' };
     default:
       return state;
   }

@@ -2,9 +2,9 @@ export const ADD_CURRENT = "ADD_CURRENT";
 export const REMOVE_CURRENT = "REMOVE_CURRENT";
 
 export const addCurrent = (item) => {
-  return {
-    type: ADD_CURRENT,
-    item: item,
+  return function (dispatch) {
+    dispatch({ type: ADD_CURRENT, item: item });
+    // history.replace({ pathname: `/ingredients/${item._id}` });
   };
 };
 

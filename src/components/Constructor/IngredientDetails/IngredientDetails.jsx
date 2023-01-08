@@ -1,8 +1,15 @@
 import ingredientDetailsStyles from "./IngredientDetails.module.css";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function IngredientDetails() {
   const item = useSelector((store) => store.current.currentIngredient);
+  const history = useHistory();
+ 
+  // useEffect(() => {
+  //   history.replace({ pathname: `/ingredients/${item._id}` });
+  // }, []);
 
   return (
     <div>

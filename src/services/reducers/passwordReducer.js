@@ -8,6 +8,8 @@ import {
 } from "../actions/passwordActions";
 
 const initialState = {
+  email: "",
+  token: '',
   passRequest: false,
   passFail: false,
   newPassRequest: false,
@@ -19,6 +21,7 @@ export const passwordReducer = (state = initialState, action) => {
     case FORGOT_PASSWORD_REQUEST:
       return {
         ...state,
+        email: action.email,
         passRequest: false,
         passFail: false,
       };
@@ -34,16 +37,12 @@ export const passwordReducer = (state = initialState, action) => {
         passRequest: false,
         passFail: true,
       };
-    default:
-      return state;
-  }
-};
-
-export const newPasswordReducer = (state = initialState, action) => {
-  switch (action.type) {
+    
     case NEW_PASSWORD_REQUEST:
       return {
         ...state,
+        password: action.password,
+        token: action.token,
         newPassRequest: false,
         newPassFail: false,
       };

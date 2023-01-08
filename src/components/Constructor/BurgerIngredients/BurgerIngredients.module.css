@@ -56,3 +56,8 @@
   right: 0;
   display: block;
 }
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}

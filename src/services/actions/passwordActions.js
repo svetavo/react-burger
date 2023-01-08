@@ -6,16 +6,19 @@ export const NEW_PASSWORD_REQUEST = "NEW_PASSWORD_REQUEST";
 export const NEW_PASSWORD_OK = "NEW_PASSWORD_OK";
 export const NEW_PASSWORD_FAIL = "NEW_PASSWORD_FAIL";
 
-export const resetPassword = () => {
+export const resetPassword = (email, history) => {
   return function (dispatch) {
     dispatch({
       type: FORGOT_PASSWORD_REQUEST,
+      email: email
     });
-    passwordReset()
+    passwordReset(email)
       .then((res) => {
-        dispatch({
-          type: FORGOT_PASSWORD_OK,
-        });
+        if (res.success) {
+          dispatch({
+            type: FORGOT_PASSWORD_OK,
+          });
+        }
       })
       .catch(() =>
         dispatch({
@@ -25,12 +28,14 @@ export const resetPassword = () => {
   };
 };
 
-export const newPassword = () => {
+export const newPassword = (password, token) => {
   return function (dispatch) {
     dispatch({
       type: NEW_PASSWORD_REQUEST,
+      password: password,
+      token: token
     });
-    newPass()
+    newPass(password, token)
       .then((res) => {
         dispatch({
           type: NEW_PASSWORD_OK,

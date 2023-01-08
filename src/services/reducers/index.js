@@ -4,7 +4,7 @@ import orderNumberReducer from "./orderReducer";
 import { constructorReducer, totalPriceReducer } from "./constructorReducer";
 import currentIngredientReducer from "./currentIngredientReducer";
 import {passwordReducer} from "./passwordReducer";
-import {userReducer} from "./authorisationReducer";
+import {userReducer} from "./userReducer";
 
 const rootReducer = combineReducers({
   ingredients: ingredientsReducer,

@@ -20,6 +20,7 @@ export default function BurgerConstructor() {
     (store) => store.addedIngredients.ingredients
   );
 
+  const allIngredients = [...buns, ...ingredients];
   const dispatch = useDispatch();
 
   const priceDecrement = (item) => {
@@ -80,51 +81,58 @@ export default function BurgerConstructor() {
   };
 
   return (
-    <section className={constructorStyles.burger__section}>
-      <ul className={constructorStyles.burger__list}>
-        {buns.map((bun) => (
-          <li className={constructorStyles.burger__item} key={bun._id}>
-            <div className={constructorStyles.burger__dragdrop}></div>
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={`${bun.name} (верх)`}
-              price={bun.price}
-              thumbnail={bun.image}
-              alt={bun.text}
-            />
-          </li>
-        ))}
-        <div
-          className={`${constructorStyles.burger__scroll} ${constructorStyles.burger__list}`}
-          ref={dropRef}
-        >
-          {ingredients.map((item, index) => (
-            <BurgerConstructorItem
-              item={item}
-              index={index}
-              handleDelete={handleDelete}
-              key={item.uuid}
-              moveCard={moveCard}
-            />
+    <section className={constructorStyles.burger__section} ref={dropRef}>
+      {allIngredients?.length ? (
+        <ul className={constructorStyles.burger__list}>
+          {buns.map((bun) => (
+            <li className={constructorStyles.burger__item} key={bun._id}>
+              <div className={constructorStyles.burger__dragdrop}></div>
+              <ConstructorElement
+                type="top"
+                isLocked={true}
+                text={`${bun.name} (верх)`}
+                price={bun.price}
+                thumbnail={bun.image}
+                alt={bun.text}
+              />
+            </li>
           ))}
-        </div>
+          <div
+            className={`${constructorStyles.burger__scroll} ${constructorStyles.burger__list}`}
+          >
+            {ingredients.map((item, index) => (
+              <BurgerConstructorItem
+                item={item}
+                index={index}
+                handleDelete={handleDelete}
+                key={item.uuid}
+                moveCard={moveCard}
+              />
+            ))}
+          </div>
 
-        {buns.map((bun) => (
-          <li className={constructorStyles.burger__item} key={bun._id}>
-            <div className={constructorStyles.burger__dragdrop}></div>
-            <ConstructorElement
-              type="bottom"
-              key={bun._id}
-              isLocked={true}
-              text={`${bun.name} (низ)`}
-              price={bun.price}
-              thumbnail={bun.image}
-              alt={bun.text}
-            />
-          </li>
-        ))}
-      </ul>
+          {buns.map((bun) => (
+            <li className={constructorStyles.burger__item} key={bun._id}>
+              <div className={constructorStyles.burger__dragdrop}></div>
+              <ConstructorElement
+                type="bottom"
+                key={bun._id}
+                isLocked={true}
+                text={`${bun.name} (низ)`}
+                price={bun.price}
+                thumbnail={bun.image}
+                alt={bun.text}
+              />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div
+          className={`${constructorStyles.hint} text text_type_main-large text_color_inactive`}
+        >
+          Перетащите ингредиенты сюда
+        </div>
+      )}
       <Summary />
     </section>
   );

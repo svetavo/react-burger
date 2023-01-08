@@ -8,9 +8,11 @@ import Modal from "../../Modal/Modal";
 import OrderDetails from "./OrderDetails/OrderDetails";
 import summaryStyles from "./Summary.module.css";
 import { getOrderNumber } from "../../../services/actions/orderActions";
+import { useHistory } from "react-router-dom";
 
 export default function Summary() {
   const [isOpen, setIsOpen] = useState(false);
+  const history = useHistory();
   const dispatch = useDispatch();
   const buns = useSelector((store) => store.addedIngredients.buns);
   const ingredients = useSelector(
@@ -19,10 +21,15 @@ export default function Summary() {
   const addedIngredients = [...buns, ...ingredients];
 
   const total = useSelector((store) => store.total.total);
+  const user = useSelector((store) => store.user.isLoggedIn);
 
   const handleOrder = () => {
-    dispatch(getOrderNumber(addedIngredients));
-    setIsOpen(true);
+    if (user) {
+      dispatch(getOrderNumber(addedIngredients));
+      setIsOpen(true);
+    } else {
+      history.replace({ pathname: "/login" });
+    }
   };
 
   return (

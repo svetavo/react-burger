@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { DndProvider } from "react-dnd";
-// import { HTML5Backend } from "react-dnd-html5-backend";
 import "normalize.css";
 import appStyles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
@@ -18,12 +16,19 @@ import {
 } from "../../pages/index.jsx";
 import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-
+import Modal from "../Modal/Modal";
+import IngredientDetails from "../Constructor/IngredientDetails/IngredientDetails";
 
 export default function App() {
   const isLoaded = useSelector((store) => store.ingredients.isLoaded);
   const error = useSelector((store) => store.ingredients.error);
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleCloseIng = () => {
+    history.replace({ pathname: "/" });
+  };
+
 
   useEffect(() => {
     dispatch(loadIngredients());
@@ -36,7 +41,7 @@ export default function App() {
   } else {
     return (
       <div className={appStyles.page}>
-        <Router>
+        <Router {...{ history }}>
           <AppHeader />
           <Switch>
             <Route path="/" exact={true}>
@@ -54,19 +59,21 @@ export default function App() {
             <Route path="/reset-password" exact={true}>
               <ResetPassPage />
             </Route>
-            <Route path="/profile" exact={true}>
+            <ProtectedRoute path="/profile" exact={true}>
               <ProfilePage />
-            </Route>
-            <Route path={`/ingredients/:id`} exact={true}>
-              <IngredientPage />
-            </Route>
-            <Route path={`/profile/orders/:id`} exact={true}>
-
-            </Route>
+            </ProtectedRoute>
+            <Route path={`/profile/orders/:id`} exact={true}></Route>
             <Route>
               <NotFound404 />
             </Route>
           </Switch>
+          {/* {!!background && (
+            <Route path="/ingredients/:id" exact={true}>
+              <Modal handleClose={handleCloseIng}>
+                <IngredientDetails />
+              </Modal>
+            </Route>
+          )} */}
         </Router>
       </div>
     );
