@@ -6,6 +6,7 @@ import {
 import styles from "./pagesStyles.module.css";
 import { useHistory } from "react-router-dom";
 
+
 const LoginPage = () => {
 
   const history = useHistory();
@@ -21,7 +22,7 @@ const LoginPage = () => {
 
   return (
     <div className={styles.area}>
-      <div className={styles.container}>
+      <form className={styles.container}>
         <h2 className="text text_type_main-medium mb-6">Вход</h2>
         <EmailInput placeholder={"E-mail"} extraClass="mb-6" />
         <PasswordInput
@@ -29,7 +30,7 @@ const LoginPage = () => {
           extraClass="mb-6"
         />{" "}
         <Button
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="large"
           extraClass="mb-20"
@@ -44,7 +45,7 @@ const LoginPage = () => {
           Забыли пароль?{" "}
           <span className={styles.span} onClick={onClickRes}>Восстановить пароль</span>
         </h3>
-      </div>
+      </form>
     </div>
   );
 };

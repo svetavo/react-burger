@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { DndProvider } from "react-dnd";
 // import { HTML5Backend } from "react-dnd-html5-backend";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "normalize.css";
 import appStyles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
@@ -17,6 +16,9 @@ import {
   RegisterPage,
   LoginPage,
 } from "../../pages/index.jsx";
+import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from "react-router-dom";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+
 
 export default function App() {
   const isLoaded = useSelector((store) => store.ingredients.isLoaded);
