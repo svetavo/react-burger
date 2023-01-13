@@ -42,14 +42,16 @@ export default function Summary() {
         </p>
         <CurrencyIcon type="primary" />
       </div>
-      <Button
-        type="primary"
-        size="large"
-        htmlType="button"
-        onClick={() => handleOrder()}
-      >
-        Оформить заказ
-      </Button>
+      {addedIngredients.length ? (
+        <Button
+          type="primary"
+          size="large"
+          htmlType="button"
+          onClick={() => handleOrder()}
+        >
+          Оформить заказ
+        </Button>
+      ) : null}
       <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>
         <OrderDetails />
       </Modal>

@@ -9,12 +9,16 @@ import {
   ForgotPassPage,
   ResetPassPage,
   ProfilePage,
-  IngredientPage,
   NotFound404,
   RegisterPage,
   LoginPage,
 } from "../../pages/index.jsx";
-import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
+import { useLocation } from "react-router";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../Constructor/IngredientDetails/IngredientDetails";
@@ -25,14 +29,16 @@ export default function App() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const location = useLocation();
+  const background = location.state?.background;
+
   const handleCloseIng = () => {
     history.replace({ pathname: "/" });
   };
 
-
   useEffect(() => {
     dispatch(loadIngredients());
-  }, []);
+  }, [dispatch]);
 
   if (error) {
     return <div>Ошибка: {error.message}</div>;
@@ -41,40 +47,46 @@ export default function App() {
   } else {
     return (
       <div className={appStyles.page}>
-        <Router {...{ history }}>
-          <AppHeader />
-          <Switch>
-            <Route path="/" exact={true}>
-              <HomePage />
-            </Route>
-            <Route path="/login" exact={true}>
-              <LoginPage />
-            </Route>
-            <Route path="/register" exact={true}>
-              <RegisterPage />
-            </Route>
-            <Route path="/forgot-password" exact={true}>
-              <ForgotPassPage />
-            </Route>
-            <Route path="/reset-password" exact={true}>
-              <ResetPassPage />
-            </Route>
-            <ProtectedRoute path="/profile" exact={true}>
-              <ProfilePage />
-            </ProtectedRoute>
-            <Route path={`/profile/orders/:id`} exact={true}></Route>
-            <Route>
-              <NotFound404 />
-            </Route>
-          </Switch>
-          {/* {!!background && (
-            <Route path="/ingredients/:id" exact={true}>
+        <AppHeader />
+        <Switch location={background || location}>
+          <Route path="/" exact={true} component={HomePage} />
+          <Route path="/login" exact={true} component={LoginPage} />
+          <Route path="/register" exact={true} component={RegisterPage} />
+          <Route
+            path="/forgot-password"
+            exact={true}
+            component={ForgotPassPage}
+          />
+          <Route
+            path="/reset-password"
+            exact={true}
+            component={ResetPassPage}
+          />
+          <ProtectedRoute path="/profile" exact={true}>
+            <ProfilePage />
+          </ProtectedRoute>
+          <Route
+            path="/ingredients/:id"
+            exact={true}
+            component={IngredientDetails}
+          />
+          {/* <Route path={`/profile/orders/:id`} exact={true}></Route> */}
+
+          <Route>
+            <NotFound404 />
+          </Route>
+        </Switch>
+
+        {!!background && (
+          <Route
+            path="/ingredients/:id"
+            children={
               <Modal handleClose={handleCloseIng}>
                 <IngredientDetails />
               </Modal>
-            </Route>
-          )} */}
-        </Router>
+            }
+          />
+        )}
       </div>
     );
   }

@@ -9,17 +9,12 @@ import { useHistory, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../services/actions/userActions";
 
-
 const LoginPage = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const history = useHistory();
-  const dispatch = useDispatch()
-  const user = useSelector((store)=>store.user.isLoggedIn);
-
-  // const onChange = (e) => {
-  //   setPassword(e.target.value);
-  // };
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user.isLoggedIn);
 
   const onClickReg = () => {
     history.replace({ pathname: "/register" });
@@ -31,9 +26,8 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('hi')
-    dispatch(userLogin(email, password))
-  }
+    dispatch(userLogin(email, password));
+  };
 
   if (user) {
     return <Redirect to="/" />;
@@ -60,7 +54,6 @@ const LoginPage = () => {
           type="primary"
           size="large"
           extraClass="mb-20"
-          // onClick={handleSubmit}
         >
           Войти
         </Button>

@@ -21,7 +21,6 @@ import {
 
 const initialState = {
   email: "",
-  password: "",
   name: "",
   token: "",
   accessToken: "",
@@ -43,7 +42,6 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         email: action.email,
-        password: action.password,
         name: action.name,
         request: true,
         fail: false,
@@ -100,6 +98,11 @@ export const userReducer = (state = initialState, action) => {
     case LOGOUT_OK:
       return {
         ...state,
+        email: null,
+        name: null,
+        isLoggedIn: false,
+        accessToken: null,
+        refreshToken: null,
         request: true,
         fail: false,
       };

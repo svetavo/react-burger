@@ -22,6 +22,10 @@ const ForgotPassPage = () => {
     history.replace({ pathname: "/reset-password" });
   };
 
+  const handleLogin = (e) => {
+    history.replace({ pathname: "/login" });
+  };
+
   if (user) {
     return <Redirect to="/" />;
   }
@@ -43,12 +47,14 @@ const ForgotPassPage = () => {
           type="primary"
           size="large"
           extraClass="mb-20"
-          // onClick={() => handleReset()}
         >
           Восстановить
         </Button>
         <h3 className="text text_type_main-default text_color_inactive">
-          Вспомнили пароль? <span className={styles.span}>Войти</span>
+          Вспомнили пароль?{" "}
+          <span className={styles.span} onClick={handleLogin}>
+            Войти
+          </span>
         </h3>
       </form>
     </div>

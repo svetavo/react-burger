@@ -17,7 +17,7 @@ const ProfilePage = () => {
   }, []);
 
   const handleOrdersClick = (id) => {
-    history.replace({ pathname: `/profile/orders/${id}` });
+    // history.replace({ pathname: `/profile/orders/${id}` });
     setActiveLinkProfile("orders");
   };
   const handleInfoClick = () => {
@@ -26,7 +26,8 @@ const ProfilePage = () => {
   };
   const handleExitClick = () => {
     setActiveLinkProfile("exit");
-    dispatch(userLogout(token))
+    dispatch(userLogout(token));
+    history.replace({ pathname: "/login" });
   };
 
   return (

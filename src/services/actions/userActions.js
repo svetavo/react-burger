@@ -39,7 +39,7 @@ export const newUser = (email, password, name) => {
       password: password,
       name: name,
     });
-    newUserReg({email, password, name})
+    newUserReg({ email, password, name })
       .then((res) => {
         dispatch({
           type: NEW_USER_OK,
@@ -63,7 +63,7 @@ export const userLogin = (email, password) => {
     dispatch({
       type: LOGIN_REQUEST,
       email: email,
-      password: password
+      password: password,
     });
     login(email, password)
       .then((res) => {
@@ -87,26 +87,26 @@ export const userLogin = (email, password) => {
   };
 };
 
-// export const tokenRefresh = () => {
-//   return function (dispatch) {
-//     dispatch({
-//       type: TOKEN_REQUEST,
-//     });
-//     tokenRefresh()
-//       .then((res) => {
-//         dispatch({
-//           type: TOKEN_OK,
-//           accessToken: res.accessToken,
-//           refreshToken: res.refreshToken,
-//         });
-//       })
-//       .catch(() =>
-//         dispatch({
-//           type: TOKEN_FAIL,
-//         })
-//       );
-//   };
-// };
+export const refreshToken = () => {
+  return function (dispatch) {
+    dispatch({
+      type: TOKEN_REQUEST,
+    });
+    tokenRefresh()
+      .then((res) => {
+        dispatch({
+          type: TOKEN_OK,
+          accessToken: res.accessToken,
+          refreshToken: res.refreshToken,
+        });
+      })
+      .catch(() =>
+        dispatch({
+          type: TOKEN_FAIL,
+        })
+      );
+  };
+};
 
 export const userLogout = (token) => {
   return function (dispatch) {
@@ -135,7 +135,7 @@ export const getUser = (token) => {
   return function (dispatch) {
     dispatch({
       type: GET_USER_INFO_REQUEST,
-      token: token
+      token: token,
     });
     userGetInfo(token)
       .then((res) => {
