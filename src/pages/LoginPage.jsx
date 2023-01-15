@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../services/actions/userActions";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user.isLoggedIn);
@@ -39,15 +39,16 @@ const LoginPage = () => {
         <h2 className="text text_type_main-medium mb-6">Вход</h2>
         <EmailInput
           placeholder={"E-mail"}
+          value={email}
           name={"email"}
           extraClass="mb-6"
           onChange={(e) => setEmail(e.target.value)}
         />
         <PasswordInput
           name={"password"}
+          value={password}
           extraClass="mb-6"
           onChange={(e) => setPassword(e.target.value)}
-          value={password}
         />{" "}
         <Button
           htmlType="submit"

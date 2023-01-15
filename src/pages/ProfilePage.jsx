@@ -1,11 +1,23 @@
 import styles from "./pagesStyles.module.css";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getUser, userLogout } from "../services/actions/userActions";
+import {
+  getUser,
+  userLogout,
+  patchUser,
+} from "../services/actions/userActions";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  Button,
+  Input,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 const ProfilePage = () => {
   const [activeLinkProfile, setActiveLinkProfile] = useState("profile");
+  const [activeButton, setActiveButton] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
   const token = useSelector((store) => store.user.refreshToken);
@@ -14,6 +26,8 @@ const ProfilePage = () => {
 
   useEffect(() => {
     dispatch(getUser(token));
+    setName(userName);
+    setEmail(userEmail);
   }, []);
 
   const handleOrdersClick = (id) => {
@@ -26,8 +40,19 @@ const ProfilePage = () => {
   };
   const handleExitClick = () => {
     setActiveLinkProfile("exit");
-    dispatch(userLogout(token));
+    dispatch(userLogout());
     history.replace({ pathname: "/login" });
+  };
+
+  const handleCancel = () => {
+    setName(userName);
+    setEmail(userEmail);
+    setActiveButton(false);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(patchUser(email, name));
   };
 
   return (
@@ -62,30 +87,68 @@ const ProfilePage = () => {
             В этом разделе вы можете изменить свои персональные данные
           </p>
         </div>
-        <div>
-          <div className={styles.userinfo}>
-            <p className="text text_type_main-small text_color_inactive">Имя</p>
-            <p className="text text_type_main-small text_color_inactive">
-              {userName}
-            </p>
-          </div>
-          <div className={styles.userinfo}>
-            <p className="text text_type_main-small text_color_inactive">
-              Логин
-            </p>
-            <p className="text text_type_main-small text_color_inactive">
-              {userEmail}{" "}
-            </p>
-          </div>
-          <div className={styles.userinfo}>
-            <p className="text text_type_main-small text_color_inactive">
-              Пароль
-            </p>
-            <p className="text text_type_main-small text_color_inactive">
-              ******
-            </p>
-          </div>
-        </div>
+        <form onSubmit={onSubmit}>
+          <Input
+            type={"text"}
+            placeholder={"Имя"}
+            onChange={(e) => setName(e.target.value)}
+            icon={activeButton === "name" ? "CloseIcon" : "EditIcon"}
+            value={name}
+            name={"name"}
+            error={false}
+            onIconClick={() => setActiveButton("name")}
+            errorText={"Ошибка"}
+            size={"default"}
+            extraClass="mb-4"
+          />
+          <Input
+            type={"email"}
+            placeholder={"Логин"}
+            onChange={(e) => setEmail(e.target.value)}
+            icon={activeButton === "email" ? "CloseIcon" : "EditIcon"}
+            value={email}
+            name={"email"}
+            error={false}
+            onIconClick={() => setActiveButton("email")}
+            errorText={"Ошибка"}
+            size={"default"}
+            extraClass="mb-4"
+          />
+          <Input
+            type={"text"}
+            placeholder={"Пароль"}
+            // onChange={(e) => setValue(e.target.value)}
+            icon={activeButton === "password" ? "CloseIcon" : "EditIcon"}
+            value={"******"}
+            name={"password"}
+            error={false}
+            onIconClick={() => setActiveButton("password")}
+            errorText={"Ошибка"}
+            size={"default"}
+            extraClass="mb-4"
+          />
+          {activeButton && (
+            <div className={styles.buttonContainer}>
+              <Button
+                htmlType="button"
+                type="secondary"
+                size="large"
+                extraClass="mb-20"
+                onClick={() => handleCancel()}
+              >
+                Отмена
+              </Button>
+              <Button
+                htmlType="submit"
+                type="primary"
+                size="large"
+                extraClass="mb-20"
+              >
+                Сохранить
+              </Button>
+            </div>
+          )}
+        </form>
       </div>
     </div>
   );

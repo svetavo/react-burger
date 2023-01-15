@@ -13,15 +13,13 @@ import {
   RegisterPage,
   LoginPage,
 } from "../../pages/index.jsx";
-import {
-  Switch,
-  Route,
-  useHistory,
-} from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import { useLocation } from "react-router";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../Constructor/IngredientDetails/IngredientDetails";
+import { refreshToken, getUser } from "../../services/actions/userActions";
+import { getCookie } from "../../utils/cookie";
 
 export default function App() {
   const isLoaded = useSelector((store) => store.ingredients.isLoaded);
@@ -32,6 +30,9 @@ export default function App() {
   const location = useLocation();
   const background = location.state?.background;
 
+  let token = localStorage.getItem("refreshToken");
+  const cookie = getCookie("token");
+
   const handleCloseIng = () => {
     history.replace({ pathname: "/" });
   };
@@ -39,6 +40,15 @@ export default function App() {
   useEffect(() => {
     dispatch(loadIngredients());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!cookie && token) {
+      dispatch(refreshToken(token));
+    }
+    if (cookie && token) {
+      dispatch(getUser());
+    }
+  }, [dispatch, cookie, token]);
 
   if (error) {
     return <div>Ошибка: {error.message}</div>;
@@ -51,12 +61,12 @@ export default function App() {
         <Switch location={background || location}>
           <Route path="/" exact={true} component={HomePage} />
           <Route path="/login" exact={true} component={LoginPage} />
-          <Route path="/register" exact={true} component={RegisterPage} />
-          <Route
-            path="/forgot-password"
-            exact={true}
-            component={ForgotPassPage}
-          />
+          <ProtectedRoute path="/register" exact={true} pass={true}>
+            <RegisterPage />
+          </ProtectedRoute>
+          <ProtectedRoute path="/forgot-password" exact={true} pass={true}>
+            <ForgotPassPage />
+          </ProtectedRoute>
           <Route
             path="/reset-password"
             exact={true}
@@ -71,7 +81,6 @@ export default function App() {
             component={IngredientDetails}
           />
           {/* <Route path={`/profile/orders/:id`} exact={true}></Route> */}
-
           <Route>
             <NotFound404 />
           </Route>

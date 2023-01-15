@@ -17,7 +17,6 @@ const ForgotPassPage = () => {
 
   const handleReset = (e) => {
     e.preventDefault();
-    console.log(email);
     dispatch(resetPassword(email));
     history.replace({ pathname: "/reset-password" });
   };
@@ -26,9 +25,9 @@ const ForgotPassPage = () => {
     history.replace({ pathname: "/login" });
   };
 
-  if (user) {
-    return <Redirect to="/" />;
-  }
+  // if (user) {
+  //   return <Redirect to="/" />;
+  // }
 
   return (
     <div className={styles.area}>

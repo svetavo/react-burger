@@ -128,6 +128,9 @@ export const userReducer = (state = initialState, action) => {
     case GET_USER_INFO_OK:
       return {
         ...state,
+        email: action.email,
+        name: action.name,
+        isLoggedIn: true,
         request: true,
         fail: false,
       };
@@ -140,12 +143,16 @@ export const userReducer = (state = initialState, action) => {
     case PATCH_USER_INFO_REQUEST:
       return {
         ...state,
+        email: action.email,
+        name: action.name,
         request: true,
         fail: false,
       };
     case PATCH_USER_INFO_OK:
       return {
         ...state,
+        email: action.email,
+        name: action.name,
         request: true,
         fail: false,
       };

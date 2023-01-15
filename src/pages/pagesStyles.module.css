@@ -44,3 +44,9 @@
   color: darkgray;
   width: 320px;
 }
+
+.buttonContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}

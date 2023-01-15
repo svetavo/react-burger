@@ -5,15 +5,14 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./pagesStyles.module.css";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { newUser } from "../services/actions/userActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector((store) => store.user.isLoggedIn);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -27,10 +26,6 @@ const RegisterPage = () => {
     history.replace({ pathname: "/login" });
   };
 
-  if (user) {
-    return <Redirect to="/" />;
-  }
-
   return (
     <div className={styles.area}>
       <form className={styles.container} onSubmit={handleReg}>
@@ -39,19 +34,19 @@ const RegisterPage = () => {
           type={"text"}
           placeholder={"Имя"}
           extraClass="mb-6"
-          value={name}
+          value={""}
           onChange={(e) => setName(e.target.value)}
         />
         <EmailInput
           placeholder={"E-mail"}
           extraClass="mb-6"
-          value={email}
-          onChange={(e)=>setEmail(e.target.value)}
+          value={""}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <PasswordInput
           name={"password"}
           extraClass="mb-6"
-          value={password}
+          value={""}
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button

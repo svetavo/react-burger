@@ -1,14 +1,26 @@
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const ProtectedRoute = ({ children, route, ...rest }) => {
+const ProtectedRoute = ({ children, pass, route, ...rest }) => {
   const userAuthState = useSelector((store) => store.user);
-  const accessToken = window.localStorage.getItem("accessToken");
-  return (
+  // const accessToken = window.localStorage.getItem("accessToken");
+
+  return pass ? (
     <Route
       {...rest}
       render={({ location }) =>
-        accessToken || userAuthState.isLoggedIn || userAuthState?.name ? (
+        userAuthState.isLoggedIn ? (
+          <Redirect to={{ pathname: "/", state: { from: location } }} />
+        ) : (
+          children
+        )
+      }
+    />
+  ) : (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        userAuthState.isLoggedIn ? (
           children
         ) : (
           <Redirect to={{ pathname: "/login", state: { from: location } }} />

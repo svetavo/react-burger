@@ -8,7 +8,7 @@ import {
 } from "../actions/passwordActions";
 
 const initialState = {
-  email: "",
+  email: null,
   token: '',
   passRequest: false,
   passFail: false,

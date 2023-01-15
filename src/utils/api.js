@@ -57,7 +57,7 @@ export const newPass = async (password, token) => {
 };
 
 //authorisation
-export const newUserReg = async ({email, password, name}) => {
+export const newUserReg = async ({ email, password, name }) => {
   return request(newUserURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -80,22 +80,24 @@ export const login = async (email, password) => {
   });
 };
 
-export const tokenRefresh = async (refreshToken) => {
+export const tokenRefresh = async () => {
+  const refreshToken = localStorage.getItem("refreshToken");
   return request(tokenURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      token: `значение ${refreshToken}`,
+      token: refreshToken,
     }),
   });
 };
 
-export const logout = async (token) => {
+export const logout = async () => {
+  const refreshToken = localStorage.getItem("refreshToken");
   return request(logoutURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      token: token,
+      token: refreshToken,
     }),
   });
 };
@@ -110,7 +112,7 @@ export const userGetInfo = async () => {
   });
 };
 
-export const userPatchInfo = async (email, name) => {
+export const userPatchInfo = async (email, name, password) => {
   return request(profileEndpointURL, {
     method: "PATCH",
     headers: {
@@ -120,6 +122,7 @@ export const userPatchInfo = async (email, name) => {
     body: JSON.stringify({
       email: email,
       name: name,
+      password: password,
     }),
   });
 };

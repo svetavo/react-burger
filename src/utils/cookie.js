@@ -1,5 +1,19 @@
-export function setCookie(name, value, props) {
-  props = props || {};
+function getCookie(name) {
+  const matches = document.cookie.match(
+    new RegExp(
+      "(?:^|; )" +
+        name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
+        "=([^;]*)"
+    )
+  );
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function setCookie(name, value, props) {
+  props = {
+    path: "/",
+    ...props,
+  };
   let exp = props.expires;
   if (typeof exp == "number" && exp) {
     const d = new Date();
@@ -20,3 +34,9 @@ export function setCookie(name, value, props) {
   }
   document.cookie = updatedCookie;
 }
+
+function deleteCookie(name) {
+  setCookie(name, null, { expires: -1 });
+}
+
+export { getCookie, setCookie, deleteCookie };

@@ -6,6 +6,7 @@ import {
   userGetInfo,
   userPatchInfo,
 } from "../../utils/api";
+import { setCookie } from "../../utils/cookie";
 
 export const NEW_USER_REQUEST = "NEW_USER_REQUEST";
 export const NEW_USER_OK = "NEW_USER_OK";
@@ -74,16 +75,15 @@ export const userLogin = (email, password) => {
           accessToken: res.accessToken,
           refreshToken: res.refreshToken,
         });
-        if (!localStorage.length) {
-          localStorage.setItem("accessToken", res.accessToken);
-          localStorage.setItem("refreshToken", res.refreshToken);
-        }
+        localStorage.setItem("accessToken", res.accessToken);
+        localStorage.setItem("refreshToken", res.refreshToken);
       })
-      .catch(() =>
+      .catch(() => {
         dispatch({
           type: LOGIN_FAIL,
-        })
-      );
+        });
+        alert("Упс, вы ввели неправильный логин или пароль");
+      });
   };
 };
 
@@ -94,6 +94,9 @@ export const refreshToken = () => {
     });
     tokenRefresh()
       .then((res) => {
+        const accessToken = res.accessToken.split("Bearer ")[1];
+        setCookie("token", accessToken);
+        localStorage.setItem("refreshToken", res.refreshToken);
         dispatch({
           type: TOKEN_OK,
           accessToken: res.accessToken,
@@ -149,15 +152,19 @@ export const getUser = (token) => {
   };
 };
 
-export const patchUser = () => {
+export const patchUser = (email, name) => {
   return function (dispatch) {
     dispatch({
       type: PATCH_USER_INFO_REQUEST,
+      email: email,
+      name: name,
     });
-    userPatchInfo()
+    userPatchInfo(email, name)
       .then((res) => {
         dispatch({
           type: PATCH_USER_INFO_OK,
+          email: res.user.email,
+          name: res.user.name,
         });
       })
       .catch(() => dispatch({ type: PATCH_USER_INFO_FAIL }));
