@@ -13,13 +13,14 @@ import { useState } from "react";
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [name, setName] = useState();
 
   const handleReg = (e) => {
     e.preventDefault();
-    dispatch(newUser(email, password, name));
+    dispatch(newUser(email, password, name))
+    history.replace({ pathname: "/" });
   };
 
   const onClickLogin = () => {
@@ -34,19 +35,19 @@ const RegisterPage = () => {
           type={"text"}
           placeholder={"Имя"}
           extraClass="mb-6"
-          value={""}
+          value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <EmailInput
           placeholder={"E-mail"}
           extraClass="mb-6"
-          value={""}
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <PasswordInput
           name={"password"}
           extraClass="mb-6"
-          value={""}
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button

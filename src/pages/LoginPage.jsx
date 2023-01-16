@@ -29,10 +29,6 @@ const LoginPage = () => {
     dispatch(userLogin(email, password));
   };
 
-  if (user) {
-    return <Redirect to="/" />;
-  }
-
   return (
     <div className={styles.area}>
       <form className={styles.container} onSubmit={handleSubmit}>

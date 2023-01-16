@@ -3,14 +3,13 @@ import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ children, pass, route, ...rest }) => {
   const userAuthState = useSelector((store) => store.user);
-  // const accessToken = window.localStorage.getItem("accessToken");
 
   return pass ? (
     <Route
       {...rest}
       render={({ location }) =>
         userAuthState.isLoggedIn ? (
-          <Redirect to={{ pathname: "/", state: { from: location } }} />
+          <Redirect to={{ pathname: '/profile', state: { from: location } }} />
         ) : (
           children
         )

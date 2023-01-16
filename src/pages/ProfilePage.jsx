@@ -17,7 +17,7 @@ const ProfilePage = () => {
   const [activeButton, setActiveButton] = useState();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
   const token = useSelector((store) => store.user.refreshToken);
@@ -28,6 +28,7 @@ const ProfilePage = () => {
     dispatch(getUser(token));
     setName(userName);
     setEmail(userEmail);
+    setPassword("******");
   }, []);
 
   const handleOrdersClick = (id) => {
@@ -117,9 +118,9 @@ const ProfilePage = () => {
           <Input
             type={"text"}
             placeholder={"Пароль"}
-            // onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             icon={activeButton === "password" ? "CloseIcon" : "EditIcon"}
-            value={"******"}
+            value={password}
             name={"password"}
             error={false}
             onIconClick={() => setActiveButton("password")}

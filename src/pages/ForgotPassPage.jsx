@@ -2,9 +2,8 @@ import {
   Button,
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styles from "./pagesStyles.module.css";
 import { resetPassword } from "../services/actions/passwordActions";
 import { useState } from "react";
@@ -13,7 +12,6 @@ const ForgotPassPage = () => {
   const [email, setEmail] = useState();
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector((store) => store.user.isLoggedIn);
 
   const handleReset = (e) => {
     e.preventDefault();
@@ -24,10 +22,6 @@ const ForgotPassPage = () => {
   const handleLogin = (e) => {
     history.replace({ pathname: "/login" });
   };
-
-  // if (user) {
-  //   return <Redirect to="/" />;
-  // }
 
   return (
     <div className={styles.area}>

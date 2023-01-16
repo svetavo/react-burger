@@ -13,7 +13,7 @@ import {
   RegisterPage,
   LoginPage,
 } from "../../pages/index.jsx";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory, Redirect } from "react-router-dom";
 import { useLocation } from "react-router";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Modal from "../Modal/Modal";
@@ -24,9 +24,9 @@ import { getCookie } from "../../utils/cookie";
 export default function App() {
   const isLoaded = useSelector((store) => store.ingredients.isLoaded);
   const error = useSelector((store) => store.ingredients.error);
+
   const dispatch = useDispatch();
   const history = useHistory();
-
   const location = useLocation();
   const background = location.state?.background;
 
@@ -60,7 +60,9 @@ export default function App() {
         <AppHeader />
         <Switch location={background || location}>
           <Route path="/" exact={true} component={HomePage} />
-          <Route path="/login" exact={true} component={LoginPage} />
+          <ProtectedRoute path="/login" exact={true} pass={true}>
+            <LoginPage />
+          </ProtectedRoute>
           <ProtectedRoute path="/register" exact={true} pass={true}>
             <RegisterPage />
           </ProtectedRoute>

@@ -5,6 +5,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--order-card);
+  width: 100%;
 }
 
 .header__item {
