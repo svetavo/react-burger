@@ -1,0 +1,23 @@
+@import url("../../../utils/colors.css");
+
+.list {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: scroll;
+  height: 464px;
+}
+
+.list::-webkit-scrollbar {
+  background-color: var(--scrollbar-dark);
+  height: 664px;
+  width: 8px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-light);
+  height: 464px;
+  width: 8px;
+}
+
