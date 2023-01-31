@@ -1,7 +1,8 @@
 @import url("../../../../utils/colors.css");
 
 .order__number {
-  text-shadow: 1px 1px 1px var(--text-shadow), 0 0 1em var(--text-shadow);
+  text-shadow: 0.2px 0.2px 0.2px var(--text-shadow),
+    0 0 0.1em var(--text-shadow);
 }
 
 .order__pic {

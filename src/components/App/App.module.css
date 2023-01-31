@@ -5,6 +5,9 @@
   flex-direction: row;
   justify-content: space-between;
   height: calc(100% - 89px);
+  display: flex;
+  justify-content: center;
+
 }
 
 .page {

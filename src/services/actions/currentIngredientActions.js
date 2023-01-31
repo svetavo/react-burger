@@ -1,15 +1,30 @@
-export const ADD_CURRENT = "ADD_CURRENT";
-export const REMOVE_CURRENT = "REMOVE_CURRENT";
+export const ADD_CURRENT_ING = "ADD_CURRENT_ING";
+export const REMOVE_CURRENT_ING = "REMOVE_CURRENT_ING";
+export const ADD_CURRENT_ORDER = "ADD_CURRENT_ORDER";
+export const REMOVE_CURRENT_ORDER = "REMOVE_CURRENT_ORDER";
 
-export const addCurrent = (item) => {
+
+export const addCurrentIng = (item) => {
   return function (dispatch) {
-    dispatch({ type: ADD_CURRENT, item: item });
-    // history.replace({ pathname: `/ingredients/${item._id}` });
+    dispatch({ type: ADD_CURRENT_ING, item: item });
   };
 };
 
-export const removeCurrent = () => {
+export const removeCurrentIng = () => {
   return {
-    type: REMOVE_CURRENT,
+    type: REMOVE_CURRENT_ING,
   };
 };
+
+export const addCurrentOrder = (item) => {
+  return function (dispatch) {
+    dispatch({ type: ADD_CURRENT_ORDER, item: item });
+  };
+};
+
+export const removeCurrentOrder = () => {
+  return {
+    type: REMOVE_CURRENT_ORDER,
+  };
+};
+

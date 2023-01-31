@@ -30,7 +30,7 @@ const ResetPassPage = () => {
   if (email === null) {
     return <Redirect to="/forgot-password" />;
   }
-  
+
   return (
     <div className={styles.area}>
       <form className={styles.container} onSubmit={resetPassHandler}>

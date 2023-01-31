@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "../../../Modal/Modal";
 import IngredientDetails from "../../IngredientDetails/IngredientDetails";
 import { ingredientTypes } from "../../../../utils/types";
@@ -9,8 +9,8 @@ import {
 import ingredientsStyles from "../BurgerIngredients.module.css";
 import { useDispatch } from "react-redux";
 import {
-  addCurrent,
-  removeCurrent,
+  addCurrentIng,
+  removeCurrentIng,
 } from "../../../../services/actions/currentIngredientActions";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
@@ -35,12 +35,12 @@ export default function IngridientsItem({ ingredient }) {
   const addedIngredients = [...buns, ...ingredients];
 
   const clickHandler = (ingredient) => {
-    dispatch(addCurrent(ingredient));
+    dispatch(addCurrentIng(ingredient));
     setIsOpen(true);
   };
 
   const handleCloseModal = () => {
-    dispatch(removeCurrent());
+    dispatch(removeCurrentIng());
     setIsOpen(false);
     history.replace({ pathname: "/" });
   };
@@ -79,7 +79,7 @@ export default function IngridientsItem({ ingredient }) {
             {counter !== 0 ? <Counter count={counter} size="default" /> : <></>}
           </div>
       </Link>
-      <Modal handleClose={handleCloseModal} isOpen={isOpen}>
+      <Modal handleClose={handleCloseModal} isOpen={isOpen} title={'Детали ингредиента'}>
         <IngredientDetails/>
       </Modal>
       </div>

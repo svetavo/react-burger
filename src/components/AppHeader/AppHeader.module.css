@@ -5,6 +5,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  background-color: var(--card-bg);
 }
 
 .header__item {
@@ -31,4 +33,5 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+  text-decoration: none;
 }

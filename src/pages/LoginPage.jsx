@@ -5,8 +5,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./pagesStyles.module.css";
 import { useState } from "react";
-import { useHistory, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { userLogin } from "../services/actions/userActions";
 
 const LoginPage = () => {
@@ -14,7 +14,6 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user.isLoggedIn);
 
   const onClickReg = () => {
     history.replace({ pathname: "/register" });
@@ -28,10 +27,6 @@ const LoginPage = () => {
     e.preventDefault();
     dispatch(userLogin(email, password));
   };
-
-  if (user) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <div className={styles.area}>

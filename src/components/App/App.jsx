@@ -20,21 +20,26 @@ import Modal from "../Modal/Modal";
 import IngredientDetails from "../Constructor/IngredientDetails/IngredientDetails";
 import { refreshToken, getUser } from "../../services/actions/userActions";
 import { getCookie } from "../../utils/cookie";
+import OrdersPage from "../../pages/OrdersPage";
+import OrderInfo from "../Orders/OrderInfo/OrderInfo";
+import {
+  wsConnectionInit,
+  wsConnectionClose,
+} from "../../services/actions/ws_connection_actions";
 
 export default function App() {
   const isLoaded = useSelector((store) => store.ingredients.isLoaded);
   const error = useSelector((store) => store.ingredients.error);
   const dispatch = useDispatch();
   const history = useHistory();
-
   const location = useLocation();
   const background = location.state?.background;
 
   let token = localStorage.getItem("refreshToken");
   const cookie = getCookie("token");
 
-  const handleCloseIng = () => {
-    history.replace({ pathname: "/" });
+  const handleClose = () => {
+    history.goBack();
   };
 
   useEffect(() => {
@@ -50,6 +55,13 @@ export default function App() {
     }
   }, [dispatch, cookie, token]);
 
+  useEffect(() => {
+    dispatch(wsConnectionInit());
+    return () => {
+      dispatch(wsConnectionClose());
+    };
+  }, [dispatch]);
+
   if (error) {
     return <div>Ошибка: {error.message}</div>;
   } else if (!isLoaded) {
@@ -60,7 +72,9 @@ export default function App() {
         <AppHeader />
         <Switch location={background || location}>
           <Route path="/" exact={true} component={HomePage} />
-          <Route path="/login" exact={true} component={LoginPage} />
+          <ProtectedRoute path="/login" exact={true} pass={true}>
+            <LoginPage />
+          </ProtectedRoute>
           <ProtectedRoute path="/register" exact={true} pass={true}>
             <RegisterPage />
           </ProtectedRoute>
@@ -75,12 +89,21 @@ export default function App() {
           <ProtectedRoute path="/profile" exact={true}>
             <ProfilePage />
           </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders" exact={true}>
+            <ProfilePage />
+          </ProtectedRoute>
           <Route
             path="/ingredients/:id"
             exact={true}
             component={IngredientDetails}
           />
-          {/* <Route path={`/profile/orders/:id`} exact={true}></Route> */}
+          <ProtectedRoute path="/profile/orders/:id" exact={true}>
+            <OrderInfo />
+          </ProtectedRoute>
+          <Route path="/feed" exact={true}>
+            <OrdersPage />
+          </Route>
+          <Route path="/feed/:id" exact={true} component={OrderInfo} />
           <Route>
             <NotFound404 />
           </Route>
@@ -90,8 +113,28 @@ export default function App() {
           <Route
             path="/ingredients/:id"
             children={
-              <Modal handleClose={handleCloseIng}>
+              <Modal handleClose={handleClose}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+        )}
+        {!!background && (
+          <Route
+            path="/feed/:id"
+            children={
+              <Modal handleClose={handleClose}>
+                <OrderInfo />
+              </Modal>
+            }
+          />
+        )}
+        {!!background && (
+          <Route
+            path="/profile/orders/:id"
+            children={
+              <Modal handleClose={handleClose}>
+                <OrderInfo />
               </Modal>
             }
           />

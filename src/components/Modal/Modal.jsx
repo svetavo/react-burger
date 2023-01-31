@@ -5,7 +5,7 @@ import modalStyles from "./Modal.module.css";
 import ModalOverlay from "./ModalOverlay/ModalOverlay";
 import PropTypes from "prop-types";
 
-function Modal({ children, isOpen, handleClose }) {
+function Modal({ children, isOpen, handleClose, title }) {
   useEffect(() => {
     if (!isOpen) return;
     const closeOnEscapeKey = (e) => (e.key === "Escape" ? handleClose() : null);
@@ -24,6 +24,11 @@ function Modal({ children, isOpen, handleClose }) {
           className={`${modalStyles.modal__content} pb-15`}
           onClick={(e) => e.stopPropagation()}
         >
+          <h2
+            className={`${modalStyles.modal__title} text text_type_main-large`}
+          >
+            {title}
+          </h2>
           <button onClick={handleClose} className={modalStyles.modal__close}>
             <CloseIcon />
           </button>

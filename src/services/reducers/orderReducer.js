@@ -10,7 +10,7 @@ const initialState = {
   orderFail: false,
 };
 
-const orderNumberReducer = (state = initialState, action) => {
+export const orderNumberReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ORDER_OK:
       return {
@@ -35,5 +35,3 @@ const orderNumberReducer = (state = initialState, action) => {
       return state;
   }
 };
-
-export default orderNumberReducer;

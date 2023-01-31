@@ -6,7 +6,7 @@ import {
   userGetInfo,
   userPatchInfo,
 } from "../../utils/api";
-import { setCookie } from "../../utils/cookie";
+import { setCookie, deleteCookie } from "../../utils/cookie";
 
 export const NEW_USER_REQUEST = "NEW_USER_REQUEST";
 export const NEW_USER_OK = "NEW_USER_OK";
@@ -121,6 +121,7 @@ export const userLogout = (token) => {
         if (res.success) {
           window.localStorage.removeItem("accessToken");
           window.localStorage.removeItem("refreshToken");
+          deleteCookie('token');
         }
         dispatch({
           type: LOGOUT_OK,

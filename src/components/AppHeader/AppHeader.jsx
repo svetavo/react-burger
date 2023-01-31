@@ -3,10 +3,9 @@ import {
   BurgerIcon,
   ListIcon,
   ProfileIcon,
-  Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import headerStyles from "./AppHeader.module.css";
-import { useHistory, NavLink } from "react-router-dom";
+import { useHistory, NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 function HeaderLogo() {
@@ -15,6 +14,7 @@ function HeaderLogo() {
 
 export default function AppHeader() {
   const [activeLink, setActiveLink] = useState("constructor");
+  const location = useLocation();
 
   const history = useHistory();
 
@@ -30,6 +30,7 @@ export default function AppHeader() {
 
   const onClickOrders = () => {
     setActiveLink("orders");
+    history.replace({ pathname: "/feed" });
   };
 
   return (
@@ -44,11 +45,15 @@ export default function AppHeader() {
             >
               {" "}
               <BurgerIcon
-                type={activeLink === "constructor" ? "primary" : "secondary"}
+                type={
+                  location.pathname === "/" || activeLink === "constructor"
+                    ? "primary"
+                    : "secondary"
+                }
               />
               <p
                 className={`${
-                  activeLink === "constructor"
+                  location.pathname === "/" || activeLink === "constructor"
                     ? headerStyles.header__text
                     : "text_color_inactive"
                 }  ml-2 text text_type_main-default`}
@@ -59,17 +64,21 @@ export default function AppHeader() {
           </li>
           <li className={headerStyles.header__item}>
             <NavLink
-              to="/"
+              to="/feed"
               className={`${headerStyles.header__button} p-5`}
               onClick={onClickOrders}
             >
               {" "}
               <ListIcon
-                type={activeLink === "orders" ? "primary" : "secondary"}
+                type={
+                  location.pathname === "/feed" || activeLink === "orders"
+                    ? "primary"
+                    : "secondary"
+                }
               />{" "}
               <p
                 className={`${
-                  activeLink === "orders"
+                  location.pathname === "/feed" || activeLink === "orders"
                     ? headerStyles.header__text
                     : "text_color_inactive"
                 } ml-2 text text_type_main-default `}
@@ -90,11 +99,15 @@ export default function AppHeader() {
           >
             {" "}
             <ProfileIcon
-              type={activeLink === "profile" ? "primary" : "secondary"}
+              type={
+                location.pathname === "/profile" || activeLink === "profile"
+                  ? "primary"
+                  : "secondary"
+              }
             />
             <p
               className={`${
-                activeLink === "profile"
+                location.pathname === "/profile" || activeLink === "profile"
                   ? headerStyles.header__text
                   : "text_color_inactive"
               } ml-2 text text_type_main-default `}
