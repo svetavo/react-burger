@@ -9,6 +9,8 @@ import OrderDetails from "./OrderDetails/OrderDetails";
 import summaryStyles from "./Summary.module.css";
 import { getOrderNumber } from "../../../services/actions/orderActions";
 import { useHistory } from "react-router-dom";
+import { clearIngredients } from "../../../services/actions/constructorActions";
+import { clearTotal } from "../../../services/actions/constructorActions";
 
 export default function Summary() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +29,8 @@ export default function Summary() {
     if (user) {
       dispatch(getOrderNumber(addedIngredients));
       setIsOpen(true);
+      dispatch(clearIngredients());
+      dispatch(clearTotal());
     } else {
       history.replace({ pathname: "/login" });
     }

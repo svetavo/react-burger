@@ -24,7 +24,7 @@ export const wsConnectionInit = () => {
 export const wsConnectionOpen = () => {
   return {
     type: WS_CONNECTION_OPEN,
-  };
+  }; 
 };
 
 export const wsConnectionClose = () => {

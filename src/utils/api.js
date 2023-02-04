@@ -31,7 +31,10 @@ export const getIngredients = async () => {
 export const getOrder = async (addedIngredients) => {
   return request(`${baseURL}/orders`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: window.localStorage.getItem("accessToken")
+    },
     body: JSON.stringify({ ingredients: addedIngredients }),
   });
 };

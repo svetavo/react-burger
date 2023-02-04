@@ -3,6 +3,7 @@
 .profileFeedContainer {
   overflow-y: scroll;
   height: 750px;
+  width: 100%;
 }
 .profileFeedContainer::-webkit-scrollbar {
   background-color: var(--scrollbar-dark);

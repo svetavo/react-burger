@@ -7,11 +7,18 @@ export default function OrderDetails() {
 
   return (
     <div className={orderDetailsStyles.order__content}>
-      <p
-        className={`${orderDetailsStyles.order__number} text text_type_digits-large mb-8`}
-      >
-        {orderNumber}
-      </p>
+      {orderNumber ? (
+        <p
+          className={`${orderDetailsStyles.order__number} text text_type_digits-large mb-8`}
+        >
+          {orderNumber}
+        </p>
+      ) : (
+        <div className={orderDetailsStyles.loaderContainer}>
+          <div className={`${orderDetailsStyles.loader} mb-6`}></div>
+        </div>
+      )}
+
       <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
       <img
         src={done}

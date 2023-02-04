@@ -9,10 +9,13 @@ export const socketMiddleware = (wsUrl, wsActions, isAuth) => {
       const { type, payload } = action;
       const { wsInit, onError, onOpen, onClose, onMessage, wsSendData } =
         wsActions;
-      const accessToken = getCookie("token");
+
+      const accessToken = window.localStorage.getItem("accessToken");
 
       if (type === wsInit && isAuth) {
-        socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
+        socket = new WebSocket(
+          `${wsUrl}?token=${accessToken.split("Bearer ")[1]}`
+        );
       } else if (type === wsInit && !isAuth) {
         socket = new WebSocket(wsUrl);
       }

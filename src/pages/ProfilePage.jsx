@@ -28,12 +28,13 @@ const ProfilePage = () => {
   const token = useSelector((store) => store.user.refreshToken);
   const userName = useSelector((store) => store.user.name);
   const userEmail = useSelector((store) => store.user.email);
+  const userPassword = useSelector((store) => store.user.password);
 
   useEffect(() => {
     dispatch(getUser(token));
     setName(userName);
     setEmail(userEmail);
-    setPassword("******");
+    setPassword(userPassword);
   }, []);
 
   const handleOrdersClick = (id) => {
@@ -53,12 +54,14 @@ const ProfilePage = () => {
   const handleCancel = () => {
     setName(userName);
     setEmail(userEmail);
+    setPassword(userPassword);
     setActiveButton(false);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(patchUser(email, name));
+    setActiveButton(false);
   };
 
   useEffect(() => {
@@ -129,7 +132,7 @@ const ProfilePage = () => {
               extraClass="mb-4"
             />
             <Input
-              type={"text"}
+              type={"password"}
               placeholder={"Пароль"}
               onChange={(e) => setPassword(e.target.value)}
               icon={activeButton === "password" ? "CloseIcon" : "EditIcon"}

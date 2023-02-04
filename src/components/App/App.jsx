@@ -22,10 +22,6 @@ import { refreshToken, getUser } from "../../services/actions/userActions";
 import { getCookie } from "../../utils/cookie";
 import OrdersPage from "../../pages/OrdersPage";
 import OrderInfo from "../Orders/OrderInfo/OrderInfo";
-import {
-  wsConnectionInit,
-  wsConnectionClose,
-} from "../../services/actions/ws_connection_actions";
 
 export default function App() {
   const isLoaded = useSelector((store) => store.ingredients.isLoaded);
@@ -54,13 +50,6 @@ export default function App() {
       dispatch(getUser());
     }
   }, [dispatch, cookie, token]);
-
-  useEffect(() => {
-    dispatch(wsConnectionInit());
-    return () => {
-      dispatch(wsConnectionClose());
-    };
-  }, [dispatch]);
 
   if (error) {
     return <div>Ошибка: {error.message}</div>;

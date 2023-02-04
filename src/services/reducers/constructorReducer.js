@@ -5,6 +5,8 @@ import {
   INCREMENT,
   REMOVE_INGREDIENT,
   SORT_INGREDIENTS,
+  CLEAR_INGREDIENTS,
+  CLEAR_TOTAL,
 } from "../actions/constructorActions";
 
 const initialState = {
@@ -44,6 +46,10 @@ export const constructorReducer = (state = initialState, action) => {
       return { ...state, ingredients: [...action.sortedArray] };
     }
 
+    case CLEAR_INGREDIENTS: {
+      return { buns: [], ingredients: [] };
+    }
+
     default:
       return state;
   }
@@ -59,6 +65,9 @@ export const totalPriceReducer = (state = initialPrice, action) => {
       return { ...state, total: state.total + action.payload.item };
     case DECREMENT:
       return { ...state, total: state.total - action.payload.item };
+      case CLEAR_TOTAL:
+        return { ...state, total: 0 };
+  
     default:
       return state;
   }

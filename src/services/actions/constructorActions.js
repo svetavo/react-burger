@@ -5,6 +5,8 @@ export const ADD_INGREDIENT = "ADD_INGREDIENT";
 export const INCREMENT = "INCREMENT";
 export const DECREMENT = "DECREMENT";
 export const SORT_INGREDIENTS = "SORT_INGREDIENTS";
+export const CLEAR_INGREDIENTS = "CLEAR_INGREDIENTS";
+export const CLEAR_TOTAL = "CLEAR_TOTAL";
 
 export const addBun = (item) => {
   return {
@@ -32,6 +34,12 @@ export const removeIngredient = (id) => {
   };
 };
 
+export const clearIngredients = () => {
+  return {
+    type: CLEAR_INGREDIENTS,
+  };
+};
+
 export const incrementPrice = (item) => {
   return {
     type: INCREMENT,
@@ -51,3 +59,10 @@ export const decrementPrice = (item) => {
     },
   };
 };
+
+export const clearTotal = () => {
+  return {
+    type: CLEAR_TOTAL,
+  };
+};
+
