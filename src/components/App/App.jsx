@@ -57,77 +57,79 @@ export default function App() {
     return <div>Загрузка...</div>;
   } else {
     return (
-      <div className={appStyles.page}>
+      <div>
         <AppHeader />
-        <Switch location={background || location}>
-          <Route path="/" exact={true} component={HomePage} />
-          <ProtectedRoute path="/login" exact={true} pass={true}>
-            <LoginPage />
-          </ProtectedRoute>
-          <ProtectedRoute path="/register" exact={true} pass={true}>
-            <RegisterPage />
-          </ProtectedRoute>
-          <ProtectedRoute path="/forgot-password" exact={true} pass={true}>
-            <ForgotPassPage />
-          </ProtectedRoute>
-          <Route
-            path="/reset-password"
-            exact={true}
-            component={ResetPassPage}
-          />
-          <ProtectedRoute path="/profile" exact={true}>
-            <ProfilePage />
-          </ProtectedRoute>
-          <ProtectedRoute path="/profile/orders" exact={true}>
-            <ProfilePage />
-          </ProtectedRoute>
-          <Route
-            path="/ingredients/:id"
-            exact={true}
-            component={IngredientDetails}
-          />
-          <ProtectedRoute path="/profile/orders/:id" exact={true}>
-            <OrderInfo />
-          </ProtectedRoute>
-          <Route path="/feed" exact={true}>
-            <OrdersPage />
-          </Route>
-          <Route path="/feed/:id" exact={true} component={OrderInfo} />
-          <Route>
-            <NotFound404 />
-          </Route>
-        </Switch>
+        <div className={appStyles.page}>
+          <Switch location={background || location}>
+            <Route path="/" exact={true} component={HomePage} />
+            <ProtectedRoute path="/login" exact={true} pass={true}>
+              <LoginPage />
+            </ProtectedRoute>
+            <ProtectedRoute path="/register" exact={true} pass={true}>
+              <RegisterPage />
+            </ProtectedRoute>
+            <ProtectedRoute path="/forgot-password" exact={true} pass={true}>
+              <ForgotPassPage />
+            </ProtectedRoute>
+            <Route
+              path="/reset-password"
+              exact={true}
+              component={ResetPassPage}
+            />
+            <ProtectedRoute path="/profile" exact={true}>
+              <ProfilePage />
+            </ProtectedRoute>
+            <ProtectedRoute path="/profile/orders" exact={true}>
+              <ProfilePage />
+            </ProtectedRoute>
+            <Route
+              path="/ingredients/:id"
+              exact={true}
+              component={IngredientDetails}
+            />
+            <Route path="/profile/orders/:id" exact={true}>
+              <OrderInfo />
+            </Route>
+            <Route path="/feed" exact={true}>
+              <OrdersPage />
+            </Route>
+            <Route path="/feed/:id" exact={true} component={OrderInfo} />
+            <Route>
+              <NotFound404 />
+            </Route>
+          </Switch>
 
-        {!!background && (
-          <Route
-            path="/ingredients/:id"
-            children={
-              <Modal handleClose={handleClose}>
-                <IngredientDetails />
-              </Modal>
-            }
-          />
-        )}
-        {!!background && (
-          <Route
-            path="/feed/:id"
-            children={
-              <Modal handleClose={handleClose}>
-                <OrderInfo />
-              </Modal>
-            }
-          />
-        )}
-        {!!background && (
-          <Route
-            path="/profile/orders/:id"
-            children={
-              <Modal handleClose={handleClose}>
-                <OrderInfo />
-              </Modal>
-            }
-          />
-        )}
+          {!!background && (
+            <Route
+              path="/ingredients/:id"
+              children={
+                <Modal handleClose={handleClose}>
+                  <IngredientDetails />
+                </Modal>
+              }
+            />
+          )}
+          {!!background && (
+            <Route
+              path="/feed/:id"
+              children={
+                <Modal handleClose={handleClose}>
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+          )}
+          {!!background && (
+            <Route
+              path="/profile/orders/:id"
+              children={
+                <Modal handleClose={handleClose}>
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+          )}
+        </div>
       </div>
     );
   }

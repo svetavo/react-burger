@@ -12,6 +12,7 @@ import {
   wsConnectionInit,
   wsConnectionClose,
 } from "../../../services/actions/ws_connection_actions";
+import { wsConnectionInitAuth } from "../../../services/actions/ws_connection_actions_auth";
 import { useState } from "react";
 
 const OrderInfo = ({ orderPrice }) => {

@@ -35,7 +35,8 @@ export default function AppHeader() {
 
   return (
     <header>
-      <nav className={`${headerStyles.header} p-4`}>
+      <div className={`${headerStyles.header} p-4`}>
+        <nav className={headerStyles.header__content}>
         <div className={headerStyles.header__constructor}>
           <li className={headerStyles.header__item}>
             <NavLink
@@ -116,7 +117,8 @@ export default function AppHeader() {
             </p>
           </NavLink>
         </li>{" "}
-      </nav>
+        </nav>
+      </div>
     </header>
   );
 }

@@ -20,7 +20,7 @@ const ProtectedRoute = ({ children, pass, route, ...rest }) => {
     <Route
       {...rest}
       render={({ location }) =>
-        userAuthState.isLoggedIn || cookie? (
+        userAuthState.isLoggedIn && cookie? (
           children
         ) : (
           <Redirect to={{ pathname: "/login", state: { from: location } }} />

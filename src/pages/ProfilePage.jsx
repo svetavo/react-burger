@@ -1,5 +1,5 @@
 import styles from "./pagesStyles.module.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, Route, Switch } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   getUser,
@@ -16,6 +16,7 @@ import {
   wsConnectionInitAuth,
   wsConnectionCloseAuth,
 } from "../services/actions/ws_connection_actions_auth";
+import OrderInfo from "../components/Orders/OrderInfo/OrderInfo";
 
 const ProfilePage = () => {
   const [activeLink, setActiveLink] = useState("profile");
@@ -64,13 +65,6 @@ const ProfilePage = () => {
     setActiveButton(false);
   };
 
-  useEffect(() => {
-    dispatch(wsConnectionInitAuth());
-    return () => {
-      dispatch(wsConnectionCloseAuth());
-    };
-  }, [dispatch]);
-
   return (
     <div>
       <div className={styles.profileContainer}>
@@ -78,7 +72,7 @@ const ProfilePage = () => {
           <div
             className={`${
               activeLink === "profile" ? " " : "text_color_inactive"
-            } ${styles.menu} text text_type_main-medium `}
+            } ${styles.link} text text_type_main-medium `}
             onClick={handleInfoClick}
           >
             Профиль
@@ -86,7 +80,7 @@ const ProfilePage = () => {
           <div
             className={`${
               activeLink === "orders" ? " " : "text_color_inactive"
-            } ${styles.menu} text text_type_main-medium  `}
+            } ${styles.link} text text_type_main-medium  `}
             onClick={handleOrdersClick}
           >
             История заказов
@@ -94,7 +88,7 @@ const ProfilePage = () => {
           <div
             className={`${
               activeLink === "exit" ? " " : "text_color_inactive"
-            } ${styles.menu} text text_type_main-medium mb-20`}
+            } ${styles.link} text text_type_main-medium mb-20`}
             onClick={handleExitClick}
           >
             Выход
@@ -103,72 +97,78 @@ const ProfilePage = () => {
             В этом разделе вы можете изменить свои персональные данные
           </p>
         </div>
-        {activeLink === "profile" ? (
-          <form onSubmit={onSubmit}>
-            <Input
-              type={"text"}
-              placeholder={"Имя"}
-              onChange={(e) => setName(e.target.value)}
-              icon={activeButton === "name" ? "CloseIcon" : "EditIcon"}
-              value={name}
-              name={"name"}
-              error={false}
-              onIconClick={() => setActiveButton("name")}
-              errorText={"Ошибка"}
-              size={"default"}
-              extraClass="mb-4"
-            />
-            <Input
-              type={"email"}
-              placeholder={"Логин"}
-              onChange={(e) => setEmail(e.target.value)}
-              icon={activeButton === "email" ? "CloseIcon" : "EditIcon"}
-              value={email}
-              name={"email"}
-              error={false}
-              onIconClick={() => setActiveButton("email")}
-              errorText={"Ошибка"}
-              size={"default"}
-              extraClass="mb-4"
-            />
-            <Input
-              type={"password"}
-              placeholder={"Пароль"}
-              onChange={(e) => setPassword(e.target.value)}
-              icon={activeButton === "password" ? "CloseIcon" : "EditIcon"}
-              value={password}
-              name={"password"}
-              error={false}
-              onIconClick={() => setActiveButton("password")}
-              errorText={"Ошибка"}
-              size={"default"}
-              extraClass="mb-4"
-            />
-            {activeButton && (
-              <div className={styles.buttonContainer}>
-                <Button
-                  htmlType="button"
-                  type="secondary"
-                  size="large"
-                  extraClass="mb-20"
-                  onClick={() => handleCancel()}
-                >
-                  Отмена
-                </Button>
-                <Button
-                  htmlType="submit"
-                  type="primary"
-                  size="large"
-                  extraClass="mb-20"
-                >
-                  Сохранить
-                </Button>
-              </div>
-            )}
-          </form>
-        ) : (
-          <OrdersHistory />
-        )}
+        <Switch>
+          <Route path="/profile" exact={true}>
+            <form onSubmit={onSubmit}>
+              <Input
+                type={"text"}
+                placeholder={"Имя"}
+                onChange={(e) => setName(e.target.value)}
+                icon={activeButton === "name" ? "CloseIcon" : "EditIcon"}
+                value={name}
+                name={"name"}
+                error={false}
+                onIconClick={() => setActiveButton("name")}
+                errorText={"Ошибка"}
+                size={"default"}
+                extraClass="mb-4"
+              />
+              <Input
+                type={"email"}
+                placeholder={"Логин"}
+                onChange={(e) => setEmail(e.target.value)}
+                icon={activeButton === "email" ? "CloseIcon" : "EditIcon"}
+                value={email}
+                name={"email"}
+                error={false}
+                onIconClick={() => setActiveButton("email")}
+                errorText={"Ошибка"}
+                size={"default"}
+                extraClass="mb-4"
+              />
+              <Input
+                type={"password"}
+                placeholder={"Пароль"}
+                onChange={(e) => setPassword(e.target.value)}
+                icon={activeButton === "password" ? "CloseIcon" : "EditIcon"}
+                value={password}
+                name={"password"}
+                error={false}
+                onIconClick={() => setActiveButton("password")}
+                errorText={"Ошибка"}
+                size={"default"}
+                extraClass="mb-4"
+              />
+              {activeButton && (
+                <div className={styles.buttonContainer}>
+                  <Button
+                    htmlType="button"
+                    type="secondary"
+                    size="large"
+                    extraClass="mb-20"
+                    onClick={() => handleCancel()}
+                  >
+                    Отмена
+                  </Button>
+                  <Button
+                    htmlType="submit"
+                    type="primary"
+                    size="large"
+                    extraClass="mb-20"
+                  >
+                    Сохранить
+                  </Button>
+                </div>
+              )}
+            </form>
+          </Route>
+          <Route path="/profile/orders" exact={true}>
+            <OrdersHistory />
+          </Route>
+          <Route path="/profile/orders/:id" exact={true}>
+            <OrderInfo />
+          </Route>
+        </Switch>
       </div>
     </div>
   );

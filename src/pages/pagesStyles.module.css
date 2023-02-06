@@ -1,3 +1,5 @@
+@import url("../utils/colors.css");
+
 .span {
   color: #4c4cff;
   cursor: pointer;
@@ -26,13 +28,27 @@
   margin-top: 120px;
 }
 
+.menuContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 .orderItemProfile {
   width: 800px;
 }
-.menu {
+.link {
   width: 320px;
   height: 64px;
   cursor: pointer;
+  text-decoration: none;
+}
+
+.link__active {
+  color: var(--white-txt);
+  width: 320px;
+  height: 64px;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .userinfo {

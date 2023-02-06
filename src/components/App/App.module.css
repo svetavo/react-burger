@@ -3,14 +3,18 @@
 .maincontainer {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   height: calc(100% - 89px);
   display: flex;
   justify-content: center;
+  align-items: center;
 
 }
 
 .page {
+  display: flex;
+flex-direction: column;
+justify-content: space-around;
+
   max-width: 1280px;
   margin: auto;
   padding: 40px;
