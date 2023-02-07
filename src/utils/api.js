@@ -33,7 +33,7 @@ export const getOrder = async (addedIngredients) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: window.localStorage.getItem("accessToken")
+      Authorization: window.localStorage.getItem("accessToken"),
     },
     body: JSON.stringify({ ingredients: addedIngredients }),
   });

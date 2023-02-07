@@ -12,10 +12,6 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrdersHistory from "../components/Orders/OrdersHistory/OrdersHistory";
-import {
-  wsConnectionInitAuth,
-  wsConnectionCloseAuth,
-} from "../services/actions/ws_connection_actions_auth";
 import OrderInfo from "../components/Orders/OrderInfo/OrderInfo";
 
 const ProfilePage = () => {

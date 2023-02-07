@@ -20,7 +20,6 @@ const OrderItem = ({ order, path }) => {
   const history = useHistory();
   const ingredients = useSelector((store) => store.ingredients.ingredients);
   const dispatch = useDispatch();
-
   const orderIngredients = order.ingredients;
 
   const findIngredient = orderIngredients.map(

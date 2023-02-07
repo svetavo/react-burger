@@ -1,4 +1,4 @@
-import { getOrder } from "../../utils/api";
+import { getOrder, getOrderInfo } from "../../utils/api";
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
 export const GET_ORDER_OK = "GET_ORDER_OK";
 export const GET_ORDER_ERROR = "GET_ORDER_ERROR";
@@ -22,3 +22,4 @@ export const getOrderNumber = (addedIngredients) => {
       );
   };
 };
+

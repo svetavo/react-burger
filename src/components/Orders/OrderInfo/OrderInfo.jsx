@@ -4,25 +4,30 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
 import styles from "./orderInfo.module.css";
-import { useParams } from "react-router-dom";
+import { useParams, useRouteMatch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect } from "react";
-import {
-  wsConnectionInit,
-  wsConnectionClose,
-} from "../../../services/actions/ws_connection_actions";
-import { wsConnectionInitAuth } from "../../../services/actions/ws_connection_actions_auth";
+import { wsConnectionInit } from "../../../services/actions/ws_connection_actions";
 import { useState } from "react";
+import {
+  wsConnectionCloseAuth,
+  wsConnectionInitAuth,
+} from "../../../services/actions/ws_connection_actions_auth";
 
 const OrderInfo = ({ orderPrice }) => {
   const dispatch = useDispatch();
   const orderCurrent = useSelector((store) => store.current.currentOrder);
   const { ingredients } = useSelector((store) => store.ingredients);
-  const orders = useSelector((store) => store.orders.orders);
+  const ordersAll = useSelector((store) => store.orders.orders);
+  const ordersAuth = useSelector((store) => store.ordersAuth.ordersAuth);
+  const orders = ordersAll || ordersAuth;
   const { id } = useParams();
   const [sortedIngredients, setSortedIngredients] = useState(null);
   const [order, setOrder] = useState(null);
+  const { path } = useRouteMatch();
+  const feedPath = path === "/feed/:id";
+  const profilePath = path === "/profile/orders/:id";
 
   useEffect(() => {
     if (orders) {
@@ -50,9 +55,11 @@ const OrderInfo = ({ orderPrice }) => {
   }, [orderCurrent, orders]);
 
   useEffect(() => {
-    dispatch(wsConnectionInit());
+    feedPath && dispatch(wsConnectionInit());
+    profilePath && dispatch(wsConnectionInitAuth());
     return () => {
-      dispatch(wsConnectionClose());
+      feedPath && dispatch(wsConnectionCloseAuth());
+      profilePath && dispatch(wsConnectionCloseAuth());
     };
   }, []);
 
