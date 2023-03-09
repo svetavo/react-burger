@@ -12,10 +12,6 @@ import {
   ISortIngredientsAction,
 } from "../../utils/types/constructor_types";
 
-type TNewIng = {
-  uuid?: string;
-};
-
 interface IConstructorState {
   buns: any[];
   ingredients: any[];
@@ -46,13 +42,12 @@ export const constructorReducer = (
     }
 
     case ConstructorTypes.ADD_INGREDIENT: {
-      const newArr = [...state.ingredients];
-      const newIngredient: TItem = { ...action.payload.item };
-      newIngredient.uuid = action.payload.item.uuid;
-      newArr.push(newIngredient);
       return {
         ...state,
-        ingredients: newArr,
+        ingredients:
+          state.ingredients === null
+            ? [{ ...action.payload.item }]
+            : [...state.ingredients, { ...action.payload.item }],
       };
     }
 
@@ -60,7 +55,7 @@ export const constructorReducer = (
       return {
         ...state,
         ingredients: state.ingredients.filter(
-          (ingredient) => ingredient.uuid !== action.uuid
+          (ingredient: TItem, index: number) => index !== action.index
         ),
       };
 

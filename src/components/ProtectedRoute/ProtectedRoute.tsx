@@ -1,40 +1,34 @@
-import { Route, Redirect, RouteProps } from "react-router-dom";
+import { Route, Redirect, RouteProps, useLocation } from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
 import { useSelector } from "../../utils/hooks";
 import React from "react";
+import { TLocation } from "../../utils/types/types";
 
 type Props = RouteProps & {
 	children: React.ReactNode;
-	path: string;
-	exact?: boolean;
+  onlyForAuth?: boolean;
 }
 
-const ProtectedRoute: React.FC<Props> = ({ children, pass, route, ...rest }) => {
-  const userAuthState = useSelector((store) => store.user);
-  const cookie : string | undefined = getCookie('token')
-  return pass ? (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        userAuthState.isLoggedIn ? (
-          <Redirect to={{ pathname: "/", state: { from: location } }} />
-        ) : (
-          children
-        )
-      }
-    />
-  ) : (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        userAuthState.isLoggedIn && cookie? (
-          children
-        ) : (
-          <Redirect to={{ pathname: "/login", state: { from: location } }} />
-        )
-      }
-    />
-  );
-};
+export const ProtectedRoute: React.FC<Props> = ({ onlyForAuth, children, ...rest }) => {
+  const isAuthorized = window.localStorage.getItem("accessToken");
+  const location = useLocation<TLocation>();
 
-export default ProtectedRoute;
+  if (!onlyForAuth && isAuthorized) {
+    const { from } = location.state || { from: { pathname: "/" } };
+    return (
+      <Route {...rest}>
+        <Redirect to={from} />
+      </Route>
+    );
+  }
+
+  if (onlyForAuth && !isAuthorized) {
+    return (
+      <Route {...rest}>
+        <Redirect to={{ pathname: "/login", state: { from: location } }} />
+      </Route>
+    );
+  }
+
+  return <Route {...rest}>{children}</Route>;
+};

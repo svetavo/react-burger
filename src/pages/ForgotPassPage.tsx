@@ -21,7 +21,7 @@ const ForgotPassPage: React.FC = () => {
     history.replace({ pathname: "/reset-password" });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = () => {
     history.replace({ pathname: "/login" });
   };
 

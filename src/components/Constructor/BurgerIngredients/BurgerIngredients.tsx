@@ -32,7 +32,7 @@ export const BurgerIngredients: React.FC = () => {
     (ingredient) => ingredient.type === "main"
   );
 
-  const handleTabClick = (value: string, ref) => {
+  const handleTabClick = (value: string, ref: any) => {
     ref.current.scrollIntoView({ behavior: "smooth" });
     setCurrent(value);
   };

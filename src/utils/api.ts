@@ -1,5 +1,5 @@
 const baseURL = "https://norma.nomoreparties.space/api";
-const baseAuthURL = "https://norma.nomoreparties.space/api/auth";
+const baseAuthURL = `${baseURL}/auth`;
 
 export const ingredientsURL = `${baseURL}/ingredients`;
 export const orderURL = `${baseURL}/orders`;
@@ -11,9 +11,8 @@ export const logoutURL = `${baseAuthURL}/logout`;
 export const tokenURL = `${baseAuthURL}/token`;
 export const profileEndpointURL = `${baseAuthURL}/user`;
 
-
 // handlers
-const checkResponse = (res) => {
+const checkResponse = (res: Response) => {
   if (res.ok) {
     return res.json();
   }
@@ -60,8 +59,14 @@ export const newPass = async (password: string, token: string) => {
   });
 };
 
+interface IUserReg {
+  email: string;
+  password: string;
+  name: string;
+}
+
 //authorisation
-export const newUserReg = async ({ email, password, name }) => {
+export const newUserReg = async ({ email, password, name }: IUserReg) => {
   return request(newUserURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

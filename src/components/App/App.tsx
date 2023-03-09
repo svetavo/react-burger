@@ -14,7 +14,7 @@ import {
 } from "../../pages/index";
 import { Switch, Route, useHistory } from "react-router-dom";
 import { useLocation } from "react-router";
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import {ProtectedRoute} from "../ProtectedRoute/ProtectedRoute";
 import { Modal } from "../Modal/Modal";
 import { IngredientDetails } from "../Constructor/IngredientDetails/IngredientDetails";
 import { refreshToken, getUser } from "../../services/actions/userActions";
@@ -70,13 +70,13 @@ export const App: React.FC = () => {
         <div className={appStyles.page}>
           <Switch location={background || location}>
             <Route path="/" exact={true} component={HomePage} />
-            <ProtectedRoute path="/login" exact={true} pass={true}>
+            <Route path="/login" exact={true} >
               <LoginPage />
-            </ProtectedRoute>
-            <ProtectedRoute path="/register" exact={true} pass={true}>
+            </Route>
+            <ProtectedRoute path="/register" exact={true} >
               <RegisterPage />
             </ProtectedRoute>
-            <ProtectedRoute path="/forgot-password" exact={true} pass={true}>
+            <ProtectedRoute path="/forgot-password" exact={true} >
               <ForgotPassPage />
             </ProtectedRoute>
             <Route
@@ -84,10 +84,10 @@ export const App: React.FC = () => {
               exact={true}
               component={ResetPassPage}
             />
-            <ProtectedRoute path="/profile" exact={true}>
+            <ProtectedRoute path="/profile" exact={true} onlyForAuth>
               <ProfilePage />
             </ProtectedRoute>
-            <ProtectedRoute path="/profile/orders" exact={true}>
+            <ProtectedRoute path="/profile/orders" exact={true} onlyForAuth>
               <ProfilePage />
             </ProtectedRoute>
             <Route

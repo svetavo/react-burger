@@ -15,8 +15,7 @@ export enum ConstructorTypes {
 
 export interface IRemoveIngredientAction {
   readonly type: ConstructorTypes.REMOVE_INGREDIENT;
-  id: string;
-  uuid: string;
+  index: number;
 }
 
 export interface IAddBunAction {
@@ -30,7 +29,7 @@ export interface IUpdateBunAction {
 
 export interface IAddIngredientAction {
   readonly type: ConstructorTypes.ADD_INGREDIENT;
-  payload: { item: TItem; uuid: TConstructor };
+  payload: { item: TItem };
 }
 
 export interface IIncrementAction {

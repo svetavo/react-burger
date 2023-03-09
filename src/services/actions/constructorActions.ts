@@ -12,25 +12,23 @@ import {
 } from "../../utils/types/constructor_types";
 import { TConstructor, TItem } from "../../utils/types/types";
 
-export const addBun = (item): IAddBunAction => ({
+export const addBun = (item: TItem): IAddBunAction => ({
   type: ConstructorTypes.ADD_BUN,
   payload: {
     item: item,
   },
 });
 
-export const addIngredient = (item): IAddIngredientAction => ({
+export const addIngredient = (item: TItem): IAddIngredientAction => ({
   type: ConstructorTypes.ADD_INGREDIENT,
   payload: {
     item: item,
-    uuid: item._id,
   },
 });
 
-export const removeIngredient = (id, uuid): IRemoveIngredientAction => ({
+export const removeIngredient = (id: number): IRemoveIngredientAction => ({
   type: ConstructorTypes.REMOVE_INGREDIENT,
-  id: id,
-  uuid: uuid
+  index: id,
 });
 
 export const clearIngredients = (): IClearIngredientsAction => ({
@@ -44,7 +42,6 @@ export const incrementPrice = (item: TItem): IIncrementAction => ({
     price: item.price,
   },
 });
-
 
 export const incrementBunPrice = (item: TItem): IIncrementBunAction => ({
   type: ConstructorTypes.INCREMENT_BUN,

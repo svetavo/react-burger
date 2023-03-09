@@ -6,15 +6,20 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./pagesStyles.module.css";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation, Redirect } from "react-router-dom";
 import { userLogin } from "../services/actions/userActions";
 import { useDispatch } from "../utils/hooks";
+import { getCookie } from "../utils/cookie";
+import { TLocation } from "../utils/types/types";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const history = useHistory();
+  const location = useLocation<TLocation>();
+  const cookie = window.localStorage.getItem('accessToken');
   const dispatch = useDispatch();
+
 
   const onClickReg: React.MouseEventHandler = () => {
     history.replace({ pathname: "/register" });
@@ -24,10 +29,14 @@ const LoginPage: React.FC = () => {
     history.replace({ pathname: "/forgot-password" });
   };
 
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(userLogin(email, password));
+    dispatch(userLogin(email, password))
   };
+
+  if(cookie){
+    return (<Redirect to={ location.state?.from || '/' }/>);
+  }
 
   return (
     <div className={styles.area}>

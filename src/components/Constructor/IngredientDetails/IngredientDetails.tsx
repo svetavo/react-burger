@@ -5,12 +5,10 @@ import { TItem } from "../../../utils/types/types";
 import React from "react";
 
 export const IngredientDetails: React.FC = (): JSX.Element => {
-  const itemCurrent = useSelector(
-    (store) => store.current.currentIngredient
-  );
+  const itemCurrent = useSelector((store) => store.current.currentIngredient);
   const ingredients = useSelector((store) => store.ingredients.ingredients);
 
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   const findItem = ingredients.find((i: TItem) => i._id === id);
 

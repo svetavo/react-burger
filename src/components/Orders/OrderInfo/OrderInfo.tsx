@@ -4,7 +4,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./orderInfo.module.css";
 import { useParams, useRouteMatch } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import { useEffect } from "react";
 import { wsConnectionInit } from "../../../services/actions/ws_connection_actions";
 import { useState } from "react";
@@ -14,7 +13,7 @@ import {
 } from "../../../services/actions/ws_connection_actions_auth";
 import React from "react";
 import { useSelector, useDispatch } from "../../../utils/hooks";
-import { TItem, TOrder } from "../../../utils/types/types";
+import { TOrder } from "../../../utils/types/types";
 
 type TOrderInfo = {
   orderPrice?: number;
@@ -39,11 +38,11 @@ const OrderInfo: React.FC<TOrderInfo> = ({ orderPrice }) => {
   useEffect(() => {
     if (orders) {
       const orderFind = orders.orders.find((i) => i._id === id);
-      const order: TOrder | undefined  = orderCurrent ? orderCurrent : orderFind;
+      const order: TOrder | undefined = orderCurrent ? orderCurrent : orderFind;
       const findIngredient = order!.ingredients.map(
         (id: string) => ingredients.filter((item) => item._id === id)[0]
       );
-      const sortedIngredients : any[] = [];
+      const sortedIngredients: any[] = [];
       findIngredient.map((ingr) => {
         const isLocated =
           sortedIngredients.filter((el) => el.item._id === ingr._id).length !==
@@ -69,7 +68,7 @@ const OrderInfo: React.FC<TOrderInfo> = ({ orderPrice }) => {
       profilePath && dispatch(wsConnectionCloseAuth());
     };
   }, []);
- 
+
   return order ? (
     <div className={styles.orderInfo__section}>
       <p
@@ -91,7 +90,7 @@ const OrderInfo: React.FC<TOrderInfo> = ({ orderPrice }) => {
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <div className={styles.orderInfo__ingredients}>
         {sortedIngredients!.map((ingredient) => (
-          <div className={styles.orderInfo__ingredient} key={uuidv4()}>
+          <div className={styles.orderInfo__ingredient} key={ingredient._id}>
             <div className={styles.orderInfo__ingredientName}>
               <img
                 className={`${styles.orderInfo__ingredientImg} mr-4`}

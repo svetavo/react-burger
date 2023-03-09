@@ -38,8 +38,8 @@ export const BurgerConstructor: React.FC = () => {
     }
   };
 
-  const handleDelete = (item: TItem) => {
-    dispatch(removeIngredient(item._id, item.uuid));
+  const handleDelete = (item: TItem, index: number) => {
+    dispatch(removeIngredient(index));
     priceDecrement(item);
   };
 
@@ -84,6 +84,7 @@ export const BurgerConstructor: React.FC = () => {
               <div className={constructorStyles.burger__dragdrop}></div>
               <ConstructorElement
                 type="top"
+                key={bun.key}
                 isLocked={true}
                 text={`${bun.name} (верх)`}
                 price={bun.price}
@@ -99,7 +100,7 @@ export const BurgerConstructor: React.FC = () => {
                 item={item}
                 index={index}
                 handleDelete={handleDelete}
-                key={item.uuid}
+                key={index}
                 moveCard={moveCard}
               />
             ))}
@@ -110,7 +111,7 @@ export const BurgerConstructor: React.FC = () => {
               <div className={constructorStyles.burger__dragdrop}></div>
               <ConstructorElement
                 type="bottom"
-                key={bun._id}
+                key={bun.key}
                 isLocked={true}
                 text={`${bun.name} (низ)`}
                 price={bun.price}

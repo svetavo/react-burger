@@ -15,8 +15,7 @@ export type TLocation = {
 };
 
 export type TItem = {
-  _id: string | number | undefined;
-  bun?: any,
+  _id: string;
   name: string;
   type: "bun" | "sauce" | "main";
   proteins: number;
@@ -29,11 +28,11 @@ export type TItem = {
   image_large: string;
   __v: number;
   index?: number
-  uuid?: string  | undefined;
+  key?: number | string | any;
 };
 
 export type TConstructor =  TItem & {
-  uuid?: string  | undefined;
+  uuid?: string;
 };
 
 export type TOrderItem = {

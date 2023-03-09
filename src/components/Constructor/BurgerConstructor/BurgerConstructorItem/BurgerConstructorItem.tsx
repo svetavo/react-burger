@@ -5,7 +5,7 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {  TItem } from "../../../../utils/types/types";
+import { TItem } from "../../../../utils/types/types";
 import React from "react";
 
 type TConstructorItem = {
@@ -13,10 +13,10 @@ type TConstructorItem = {
   uuid?: string;
   index: number;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
-  handleDelete: (item: TItem) => void;
+  handleDelete: (item: TItem, index: number) => void;
 };
 
-type TDropItem = TItem
+type TDropItem = TItem;
 
 export const BurgerConstructorItem: React.FC<TConstructorItem> = ({
   item,
@@ -77,7 +77,7 @@ export const BurgerConstructorItem: React.FC<TConstructorItem> = ({
   return (
     <li
       className={constructorStyles.burger__item}
-      key={uuid}
+      key={item._id}
       ref={ref}
       style={{ opacity }}
       data-handler-id={handlerId}
@@ -89,7 +89,7 @@ export const BurgerConstructorItem: React.FC<TConstructorItem> = ({
         text={item.name}
         price={item.price}
         thumbnail={item.image}
-        handleClose={() => handleDelete(item)}
+        handleClose={() => handleDelete(item, index)}
       />
     </li>
   );

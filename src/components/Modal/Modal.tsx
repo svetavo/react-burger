@@ -22,7 +22,8 @@ export const Modal: React.FC<TModal> = ({
 
   useEffect(() => {
     if (!isOpen) return;
-    const closeOnEscapeKey = (e) => (e.key === "Escape" ? handleClose() : null);
+    const closeOnEscapeKey = (e: KeyboardEvent) =>
+      e.key === "Escape" ? handleClose() : null;
     document.body.addEventListener("keydown", closeOnEscapeKey);
     return () => {
       document.body.removeEventListener("keydown", closeOnEscapeKey);

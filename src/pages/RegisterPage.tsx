@@ -35,19 +35,19 @@ const RegisterPage: React.FC = () => {
           type={"text"}
           placeholder={"Имя"}
           extraClass="mb-6"
-          value={""}
+          value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <EmailInput
           placeholder={"E-mail"}
           extraClass="mb-6"
-          value={""}
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <PasswordInput
           name={"password"}
           extraClass="mb-6"
-          value={""}
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button
