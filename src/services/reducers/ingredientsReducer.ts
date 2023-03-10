@@ -4,9 +4,10 @@ import {
   IFetchIngOk,
   IFetchIngReq,
 } from "../../utils/types/ingredients_types";
+import { TItem } from "../../utils/types/types";
 
 interface IIngredientsState {
-  ingredients: any[];
+  ingredients: TItem[];
   ingredientsRequest: boolean;
   ingredientsFail: boolean;
   isLoaded: boolean;

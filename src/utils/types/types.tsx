@@ -28,7 +28,7 @@ export type TItem = {
   image_large: string;
   __v: number;
   index?: number
-  key?: number | string | any;
+  uuid?: number | string | any;
 };
 
 export type TConstructor =  TItem & {
@@ -53,7 +53,7 @@ export type TOrder = {
   updatedAt: string;
   owner?: string;
   __v: number;
-  _id?: string;
+  _id: string;
 };
 
 export type TWsOrders = {

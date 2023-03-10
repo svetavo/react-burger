@@ -22,7 +22,7 @@ interface IProps {
 }
 
 export const IngridientsItem: React.FC<IProps> = ({ ingredient }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
   const location = useLocation<TLocation>();

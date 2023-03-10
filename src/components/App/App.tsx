@@ -14,7 +14,7 @@ import {
 } from "../../pages/index";
 import { Switch, Route, useHistory } from "react-router-dom";
 import { useLocation } from "react-router";
-import {ProtectedRoute} from "../ProtectedRoute/ProtectedRoute";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { Modal } from "../Modal/Modal";
 import { IngredientDetails } from "../Constructor/IngredientDetails/IngredientDetails";
 import { refreshToken, getUser } from "../../services/actions/userActions";
@@ -70,13 +70,17 @@ export const App: React.FC = () => {
         <div className={appStyles.page}>
           <Switch location={background || location}>
             <Route path="/" exact={true} component={HomePage} />
-            <Route path="/login" exact={true} >
+            <ProtectedRoute path="/login" exact={true} unAuthOnly={true}>
               <LoginPage />
-            </Route>
-            <ProtectedRoute path="/register" exact={true} >
+            </ProtectedRoute>
+            <ProtectedRoute path="/register" exact={true} unAuthOnly={true}>
               <RegisterPage />
             </ProtectedRoute>
-            <ProtectedRoute path="/forgot-password" exact={true} >
+            <ProtectedRoute
+              path="/forgot-password"
+              exact={true}
+              unAuthOnly={true}
+            >
               <ForgotPassPage />
             </ProtectedRoute>
             <Route
@@ -84,12 +88,12 @@ export const App: React.FC = () => {
               exact={true}
               component={ResetPassPage}
             />
-            <ProtectedRoute path="/profile" exact={true} onlyForAuth>
+            <ProtectedRoute path="/profile" exact={true}>
               <ProfilePage />
             </ProtectedRoute>
-            <ProtectedRoute path="/profile/orders" exact={true} onlyForAuth>
+            <Route path="/profile/orders" exact={true}>
               <ProfilePage />
-            </ProtectedRoute>
+            </Route>
             <Route
               path="/ingredients/:id"
               exact={true}
@@ -111,7 +115,11 @@ export const App: React.FC = () => {
             <Route
               path="/ingredients/:id"
               children={
-                <Modal handleClose={handleClose}>
+                <Modal
+                  handleClose={handleClose}
+                  isOpen
+                  title="Детали ингредиента"
+                >
                   <IngredientDetails />
                 </Modal>
               }
@@ -121,7 +129,7 @@ export const App: React.FC = () => {
             <Route
               path="/feed/:id"
               children={
-                <Modal handleClose={handleClose}>
+                <Modal handleClose={handleClose} isOpen title="">
                   <OrderInfo />
                 </Modal>
               }
@@ -131,7 +139,7 @@ export const App: React.FC = () => {
             <Route
               path="/profile/orders/:id"
               children={
-                <Modal handleClose={handleClose}>
+                <Modal handleClose={handleClose} isOpen title="">
                   <OrderInfo />
                 </Modal>
               }

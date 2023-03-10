@@ -23,6 +23,7 @@ export const addIngredient = (item: TItem): IAddIngredientAction => ({
   type: ConstructorTypes.ADD_INGREDIENT,
   payload: {
     item: item,
+    uuid: item.uuid
   },
 });
 

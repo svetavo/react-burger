@@ -13,13 +13,12 @@ import { getCookie } from "../utils/cookie";
 import { TLocation } from "../utils/types/types";
 
 const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const history = useHistory();
   const location = useLocation<TLocation>();
-  const cookie = window.localStorage.getItem('accessToken');
+  const cookie = window.localStorage.getItem("accessToken");
   const dispatch = useDispatch();
-
 
   const onClickReg: React.MouseEventHandler = () => {
     history.replace({ pathname: "/register" });
@@ -31,12 +30,8 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(userLogin(email, password))
+    dispatch(userLogin(email, password));
   };
-
-  if(cookie){
-    return (<Redirect to={ location.state?.from || '/' }/>);
-  }
 
   return (
     <div className={styles.area}>

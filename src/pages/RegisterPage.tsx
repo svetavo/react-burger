@@ -14,16 +14,16 @@ import { useDispatch } from "../utils/hooks";
 const RegisterPage: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
   const handleReg = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(newUser(email, password, name));
   };
 
-  const onClickLogin: React.MouseEventHandler  = () => {
+  const onClickLogin: React.MouseEventHandler = () => {
     history.replace({ pathname: "/login" });
   };
 

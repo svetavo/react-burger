@@ -13,8 +13,8 @@ import {
 } from "../../utils/types/constructor_types";
 
 interface IConstructorState {
-  buns: any[];
-  ingredients: any[];
+  buns: TItem[];
+  ingredients: TItem[];
 }
 
 export type TConstructorAction =

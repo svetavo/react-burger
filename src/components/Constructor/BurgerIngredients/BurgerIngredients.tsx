@@ -12,15 +12,13 @@ export const BurgerIngredients: React.FC = () => {
   const { ref: ingredientsRefVisible, inView: ingredientsVisible } =
     useInView();
 
-  const [current, setCurrent] = useState<string>("Булки");
+  const [current, setCurrent] = useState("Булки");
 
   const bunsRef = useRef(null);
   const saucesRef = useRef(null);
   const ingRef = useRef(null);
 
-  const ingredientList = useSelector(
-    (store) => store.ingredients.ingredients
-  );
+  const ingredientList = useSelector((store) => store.ingredients.ingredients);
 
   const buns: any[] = ingredientList.filter(
     (ingredient) => ingredient.type === "bun"

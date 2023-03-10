@@ -16,23 +16,24 @@ import OrderInfo from "../components/Orders/OrderInfo/OrderInfo";
 import { useDispatch, useSelector } from "../utils/hooks";
 
 const ProfilePage: React.FC = () => {
-  const [activeLink, setActiveLink] = useState<string>("profile");
+  const [activeLink, setActiveLink] = useState("profile");
   const [activeButton, setActiveButton] = useState<boolean | string>();
-  const [name, setName]: any = useState();
-  const [email, setEmail]: any = useState();
-  const [password, setPassword]: any = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
   const token = useSelector((store) => store.user.refreshToken);
   const userName = useSelector((store) => store.user.name);
   const userEmail = useSelector((store) => store.user.email);
   const userPassword = useSelector((store) => store.user.password);
+  const user = useSelector((store) => store.user.isLoggedIn);
 
   useEffect(() => {
     dispatch(getUser(token));
-    setName(userName);
-    setEmail(userEmail);
-    setPassword(userPassword);
+    setName(userName!);
+    setEmail(userEmail!);
+    setPassword(userPassword!);
   }, []);
 
   const handleOrdersClick: React.MouseEventHandler = (id) => {
@@ -50,9 +51,9 @@ const ProfilePage: React.FC = () => {
   };
 
   const handleCancel = () => {
-    setName(userName);
-    setEmail(userEmail);
-    setPassword(userPassword);
+    setName(userName!);
+    setEmail(userEmail!);
+    setPassword(userPassword!);
     setActiveButton(false);
   };
 

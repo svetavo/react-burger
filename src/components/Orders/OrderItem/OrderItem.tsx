@@ -66,7 +66,7 @@ const OrderItem: React.FC<TOrderItem> = ({ order, path }): JSX.Element => {
               .filter((el) => el !== undefined)
               .map((item, index) =>
                 index < 7 ? (
-                  <div className={styles.imageContainer} key={uuidv4()}>
+                  <div className={styles.imageContainer} key={index}>
                     <img
                       src={item.image}
                       className={styles.itemImg}
@@ -85,7 +85,7 @@ const OrderItem: React.FC<TOrderItem> = ({ order, path }): JSX.Element => {
           </div>
         </div>
       </Link>
-      <Modal handleClose={handleCloseModal} isOpen={isOpen}>
+      <Modal handleClose={handleCloseModal} isOpen={isOpen} title=''>
         <OrderInfo orderPrice={orderPrice} />
       </Modal>
     </div>

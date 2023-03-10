@@ -13,7 +13,7 @@ import {
 } from "../../../services/actions/ws_connection_actions_auth";
 import React from "react";
 import { useSelector, useDispatch } from "../../../utils/hooks";
-import { TOrder } from "../../../utils/types/types";
+import { TItem, TOrder } from "../../../utils/types/types";
 
 type TOrderInfo = {
   orderPrice?: number;
@@ -89,8 +89,8 @@ const OrderInfo: React.FC<TOrderInfo> = ({ orderPrice }) => {
       </p>
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <div className={styles.orderInfo__ingredients}>
-        {sortedIngredients!.map((ingredient) => (
-          <div className={styles.orderInfo__ingredient} key={ingredient._id}>
+        {sortedIngredients!.map((ingredient, index) => (
+          <div className={styles.orderInfo__ingredient} key={index}>
             <div className={styles.orderInfo__ingredientName}>
               <img
                 className={`${styles.orderInfo__ingredientImg} mr-4`}

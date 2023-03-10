@@ -55,6 +55,7 @@ export const BurgerConstructor: React.FC = () => {
   });
 
   const handleDropIngr = (ingredient: TItem) => {
+    ingredient.uuid = uuidv4()
     if (ingredient.type === "bun") {
       dispatch(addBun(ingredient));
     } else {
@@ -79,12 +80,12 @@ export const BurgerConstructor: React.FC = () => {
     <section className={constructorStyles.burger__section} ref={dropRef}>
       {allIngredients?.length ? (
         <ul className={constructorStyles.burger__list}>
-          {buns.map((bun: TItem) => (
+          {buns.map((bun) => (
             <li className={constructorStyles.burger__item} key={bun._id}>
               <div className={constructorStyles.burger__dragdrop}></div>
               <ConstructorElement
                 type="top"
-                key={bun.key}
+                key={bun.uuid}
                 isLocked={true}
                 text={`${bun.name} (верх)`}
                 price={bun.price}
@@ -95,23 +96,23 @@ export const BurgerConstructor: React.FC = () => {
           <div
             className={`${constructorStyles.burger__scroll} ${constructorStyles.burger__list}`}
           >
-            {ingredients.map((item: TItem, index: number) => (
+            {ingredients.map((item, index) => (
               <BurgerConstructorItem
                 item={item}
                 index={index}
                 handleDelete={handleDelete}
-                key={index}
+                key={item.uuid}
                 moveCard={moveCard}
               />
             ))}
           </div>
 
-          {buns.map((bun: TItem) => (
+          {buns.map((bun) => (
             <li className={constructorStyles.burger__item} key={bun._id}>
               <div className={constructorStyles.burger__dragdrop}></div>
               <ConstructorElement
                 type="bottom"
-                key={bun.key}
+                key={bun.uuid}
                 isLocked={true}
                 text={`${bun.name} (низ)`}
                 price={bun.price}

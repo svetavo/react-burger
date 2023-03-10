@@ -9,7 +9,7 @@ type TModal = {
   children: React.ReactNode;
   isOpen?: boolean;
   handleClose: () => void;
-  title?: string;
+  title: string;
 };
 
 export const Modal: React.FC<TModal> = ({

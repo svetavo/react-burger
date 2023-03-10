@@ -5,10 +5,10 @@ import {
   IAddCurrentOrderAction,
   IRemoveCurrentOrderAction,
 } from "../../utils/types/current_types";
-import { TOrder, TCurrentOrder } from "../../utils/types/types";
+import { TOrder, TCurrentOrder, TItem } from "../../utils/types/types";
 
 interface ICurrentState {
-  currentIngredient: object | null;
+  currentIngredient: TItem | null;
   currentOrder: TOrder | null;
 }
 

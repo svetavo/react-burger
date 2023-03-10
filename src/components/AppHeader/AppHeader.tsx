@@ -11,7 +11,7 @@ import { useState } from "react";
 import { TLocation } from "../../utils/types/types";
 
 export const AppHeader: React.FC = () => {
-  const [activeLink, setActiveLink] = useState<string>("constructor");
+  const [activeLink, setActiveLink] = useState("constructor");
   const location = useLocation<TLocation>();
 
   const history = useHistory();

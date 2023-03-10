@@ -29,7 +29,7 @@ export interface IUpdateBunAction {
 
 export interface IAddIngredientAction {
   readonly type: ConstructorTypes.ADD_INGREDIENT;
-  payload: { item: TItem };
+  payload: { item: TItem, uuid: string };
 }
 
 export interface IIncrementAction {

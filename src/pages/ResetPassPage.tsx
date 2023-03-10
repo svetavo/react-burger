@@ -11,8 +11,8 @@ import { useHistory, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "../utils/hooks";
 
 const ResetPassPage: React.FC = () => {
-  const [password, setPassword] = useState<string>('');
-  const [token, setToken] = useState<string>('');
+  const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
   const email = useSelector((store) => store.password.email);
 
   const history = useHistory();

@@ -3,17 +3,19 @@ import {
   Button,
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect, useLocation } from "react-router-dom";
 import styles from "./pagesStyles.module.css";
 import { resetPassword } from "../services/actions/passwordActions";
 import { useState } from "react";
-import { useDispatch } from "../utils/hooks";
+import { useDispatch, useSelector } from "../utils/hooks";
+import { TLocation } from "../utils/types/types";
 
-const ForgotPassPage: React.FC = () => {
-  
-  const [email, setEmail] = useState<string>('');
+const ForgotPassPage: React.FC = (): JSX.Element | null => {
+  const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
+  // const location = useLocation<TLocation>();
+  // const user = useSelector((store) => store.user.isLoggedIn);
 
   const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

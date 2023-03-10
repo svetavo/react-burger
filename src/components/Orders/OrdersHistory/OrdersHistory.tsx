@@ -13,7 +13,7 @@ import { TOrder } from "../../../utils/types/types";
 const OrdersHistory : React.FC = () => {
   const dispatch = useDispatch();
   const orders = useSelector((store) => store.ordersAuth.ordersAuth);
-  const [ordersReverse, setOrdersReverse] = useState<any[]>([]);
+  const [ordersReverse, setOrdersReverse] = useState<TOrder[]>([]);
 
   useEffect(() => {
     if (orders) {
@@ -33,7 +33,7 @@ const OrdersHistory : React.FC = () => {
     <div className={styles.profileFeedContainer}>
       {orders ? (
         <>
-          {ordersReverse.map((order: TOrder) => (
+          {ordersReverse.map((order) => (
             <OrderItem
               order={order}
               path={`/profile/orders/${order._id}`}

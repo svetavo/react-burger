@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 type TModalOverlay = {
-  children: React.ReactNode,
+  children: JSX.Element,
   handleClose: () => void,
 }
 
