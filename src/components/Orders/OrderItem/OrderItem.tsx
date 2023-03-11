@@ -3,15 +3,9 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import OrderInfo from "../OrderInfo/OrderInfo";
-import { Modal } from "../../Modal/Modal";
 import { useState } from "react";
-import { useHistory, Link, useLocation } from "react-router-dom";
-import {
-  removeCurrentOrder,
-  addCurrentOrder,
-} from "../../../services/actions/currentIngredientActions";
-import { v4 as uuidv4 } from "uuid";
+import { Link, useLocation } from "react-router-dom";
+import { addCurrentOrder } from "../../../services/actions/currentIngredientActions";
 import React from "react";
 import { TLocation, TOrder, TOrderItem } from "../../../utils/types/types";
 import { useDispatch, useSelector } from "../../../utils/hooks";
@@ -19,7 +13,6 @@ import { useDispatch, useSelector } from "../../../utils/hooks";
 const OrderItem: React.FC<TOrderItem> = ({ order, path }): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation<TLocation>();
-  const history = useHistory();
   const ingredients = useSelector((store) => store.ingredients.ingredients);
   const dispatch = useDispatch();
   const orderIngredients = order.ingredients;
@@ -34,12 +27,6 @@ const OrderItem: React.FC<TOrderItem> = ({ order, path }): JSX.Element => {
   const clickHandler = (order: TOrder) => {
     dispatch(addCurrentOrder(order));
     setIsOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsOpen(false);
-    dispatch(removeCurrentOrder());
-    history.goBack();
   };
 
   return (
@@ -85,9 +72,6 @@ const OrderItem: React.FC<TOrderItem> = ({ order, path }): JSX.Element => {
           </div>
         </div>
       </Link>
-      <Modal handleClose={handleCloseModal} isOpen={isOpen} title=''>
-        <OrderInfo orderPrice={orderPrice} />
-      </Modal>
     </div>
   );
 };

@@ -12,7 +12,7 @@ export const IngredientDetails: React.FC = (): JSX.Element => {
 
   const findItem = ingredients.find((i: TItem) => i._id === id);
 
-  const item: TItem| undefined = itemCurrent ? itemCurrent : findItem;
+  const item: TItem | undefined = itemCurrent ? itemCurrent : findItem;
 
   return (
     <div>

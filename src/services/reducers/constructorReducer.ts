@@ -1,4 +1,4 @@
-import { TConstructor, TItem } from "../../utils/types/types";
+import { TItem } from "../../utils/types/types";
 import {
   ConstructorTypes,
   IAddBunAction,

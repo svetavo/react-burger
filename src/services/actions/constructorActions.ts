@@ -10,7 +10,7 @@ import {
   IIncrementBunAction,
   IRemoveIngredientAction,
 } from "../../utils/types/constructor_types";
-import { TConstructor, TItem } from "../../utils/types/types";
+import { TItem } from "../../utils/types/types";
 
 export const addBun = (item: TItem): IAddBunAction => ({
   type: ConstructorTypes.ADD_BUN,

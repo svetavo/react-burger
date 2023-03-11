@@ -1,18 +1,13 @@
 import { useState } from "react";
-import { Modal } from "../../../Modal/Modal";
-import { IngredientDetails } from "../../IngredientDetails/IngredientDetails";
 import { TItem } from "../../../../utils/types/types";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientsStyles from "../BurgerIngredients.module.css";
-import {
-  addCurrentIng,
-  removeCurrentIng,
-} from "../../../../services/actions/currentIngredientActions";
+import { addCurrentIng } from "../../../../services/actions/currentIngredientActions";
 import { useDrag } from "react-dnd";
-import { useHistory, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "../../../../utils/hooks";
 import { TLocation } from "../../../../utils/types/types";
 import React from "react";
@@ -26,7 +21,6 @@ export const IngridientsItem: React.FC<IProps> = ({ ingredient }) => {
   const dispatch = useDispatch();
 
   const location = useLocation<TLocation>();
-  const history = useHistory();
 
   const [, dragRef] = useDrag({
     type: "ingredient",
@@ -38,17 +32,11 @@ export const IngridientsItem: React.FC<IProps> = ({ ingredient }) => {
     (store) => store.addedIngredients.ingredients
   );
 
-  const addedIngredients: any[] = [...buns, ...ingredients];
+  const addedIngredients: TItem[] = [...buns, ...ingredients];
 
   const clickHandler = (ingredient: TItem) => {
     dispatch(addCurrentIng(ingredient));
     setIsOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    dispatch(removeCurrentIng());
-    setIsOpen(false);
-    history.replace({ pathname: "/" });
   };
 
   const counter: number = addedIngredients.filter(
@@ -85,13 +73,6 @@ export const IngridientsItem: React.FC<IProps> = ({ ingredient }) => {
             {counter !== 0 ? <Counter count={counter} size="default" /> : <></>}
           </div>
         </Link>
-        <Modal
-          handleClose={handleCloseModal}
-          isOpen={isOpen}
-          title={"Детали ингредиента"}
-        >
-          <IngredientDetails />
-        </Modal>
       </div>
     </>
   );

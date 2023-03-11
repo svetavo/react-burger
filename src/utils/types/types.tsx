@@ -31,8 +31,9 @@ export type TItem = {
   uuid?: number | string | any;
 };
 
-export type TConstructor =  TItem & {
-  uuid?: string;
+export type TSorted =  {
+  item: TItem;
+  count: number
 };
 
 export type TOrderItem = {

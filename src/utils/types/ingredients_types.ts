@@ -1,3 +1,5 @@
+import { TItem } from "./types";
+
 export enum IngredientsTypes {
   FETCH_INGREDIENTS_OK = "FETCH_INGREDIENTS_OK",
   FETCH_INGREDIENTS_ERROR = "FETCH_INGREDIENTS_ERROR",
@@ -6,7 +8,7 @@ export enum IngredientsTypes {
 
 export interface IFetchIngOk {
   readonly type: IngredientsTypes.FETCH_INGREDIENTS_OK;
-  ingredients: any[];
+  ingredients: TItem[];
 }
 
 export interface IFetchIngErr {

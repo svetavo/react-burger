@@ -10,7 +10,7 @@ import React from "react";
 import { useDispatch, useSelector } from "../../../utils/hooks";
 import { TOrder } from "../../../utils/types/types";
 
-const OrdersHistory : React.FC = () => {
+const OrdersHistory: React.FC = () => {
   const dispatch = useDispatch();
   const orders = useSelector((store) => store.ordersAuth.ordersAuth);
   const [ordersReverse, setOrdersReverse] = useState<TOrder[]>([]);

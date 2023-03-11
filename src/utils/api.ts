@@ -1,3 +1,5 @@
+import { TItem } from "./types/types";
+
 const baseURL = "https://norma.nomoreparties.space/api";
 const baseAuthURL = `${baseURL}/auth`;
 
@@ -28,7 +30,7 @@ export const getIngredients = async () => {
   return request(`${baseURL}/ingredients`, {});
 };
 
-export const getOrder = async (addedIngredients: any[]) => {
+export const getOrder = async (addedIngredients: TItem[]) => {
   return request(`${baseURL}/orders`, {
     method: "POST",
     headers: {

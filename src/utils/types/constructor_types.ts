@@ -1,4 +1,4 @@
-import { TConstructor, TItem } from "./types";
+import { TItem } from "./types";
 
 export enum ConstructorTypes {
   REMOVE_INGREDIENT = "REMOVE_INGREDIENT",
@@ -29,7 +29,7 @@ export interface IUpdateBunAction {
 
 export interface IAddIngredientAction {
   readonly type: ConstructorTypes.ADD_INGREDIENT;
-  payload: { item: TItem, uuid: string };
+  payload: { item: TItem; uuid: string };
 }
 
 export interface IIncrementAction {
@@ -48,7 +48,7 @@ export interface IDecrementAction {
 
 export interface ISortIngredientsAction {
   readonly type: ConstructorTypes.SORT_INGREDIENTS;
-  sortedArray: any[];
+  sortedArray: TItem[];
 }
 
 export interface IClearIngredientsAction {

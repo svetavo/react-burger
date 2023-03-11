@@ -5,6 +5,7 @@ import ingredientsStyles from "./BurgerIngredients.module.css";
 import { IngridientsItem } from "./IngredientsItem/IngredientsItem";
 import { useInView } from "react-intersection-observer";
 import { useSelector } from "../../../utils/hooks";
+import { TItem } from "../../../utils/types/types";
 
 export const BurgerIngredients: React.FC = () => {
   const { ref: bunsRefVisible, inView: bunsVisible } = useInView();
@@ -20,13 +21,13 @@ export const BurgerIngredients: React.FC = () => {
 
   const ingredientList = useSelector((store) => store.ingredients.ingredients);
 
-  const buns: any[] = ingredientList.filter(
+  const buns: TItem[] = ingredientList.filter(
     (ingredient) => ingredient.type === "bun"
   );
-  const sauces: any[] = ingredientList.filter(
+  const sauces: TItem[] = ingredientList.filter(
     (ingredient) => ingredient.type === "sauce"
   );
-  const ingredients: any[] = ingredientList.filter(
+  const ingredients: TItem[] = ingredientList.filter(
     (ingredient) => ingredient.type === "main"
   );
 

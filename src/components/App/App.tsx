@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "normalize.css";
 import appStyles from "./App.module.css";
 import { AppHeader } from "../AppHeader/AppHeader";
@@ -24,6 +24,10 @@ import OrderInfo from "../Orders/OrderInfo/OrderInfo";
 import React from "react";
 import { useDispatch, useSelector } from "../../utils/hooks";
 import { TLocation } from "../../utils/types/types";
+import {
+  removeCurrentIng,
+  removeCurrentOrder,
+} from "../../services/actions/currentIngredientActions";
 
 type TErrorMsg = {
   message?: string;
@@ -42,7 +46,21 @@ export const App: React.FC = () => {
   let token: string | null = localStorage.getItem("refreshToken");
   const cookie: string | undefined = getCookie("token");
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleClose = () => {
+    history.goBack();
+  };
+
+  const handleCloseIngModal = () => {
+    dispatch(removeCurrentIng());
+    setIsOpen(false);
+    history.goBack();
+  };
+
+  const handleCloseOrderModal = () => {
+    setIsOpen(false);
+    dispatch(removeCurrentOrder());
     history.goBack();
   };
 
@@ -116,7 +134,7 @@ export const App: React.FC = () => {
               path="/ingredients/:id"
               children={
                 <Modal
-                  handleClose={handleClose}
+                  handleClose={handleCloseIngModal}
                   isOpen
                   title="Детали ингредиента"
                 >
@@ -129,7 +147,7 @@ export const App: React.FC = () => {
             <Route
               path="/feed/:id"
               children={
-                <Modal handleClose={handleClose} isOpen title="">
+                <Modal handleClose={handleCloseOrderModal} isOpen title="">
                   <OrderInfo />
                 </Modal>
               }
@@ -139,7 +157,7 @@ export const App: React.FC = () => {
             <Route
               path="/profile/orders/:id"
               children={
-                <Modal handleClose={handleClose} isOpen title="">
+                <Modal handleClose={handleCloseOrderModal} isOpen title="">
                   <OrderInfo />
                 </Modal>
               }

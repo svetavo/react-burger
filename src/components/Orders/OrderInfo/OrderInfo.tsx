@@ -13,7 +13,7 @@ import {
 } from "../../../services/actions/ws_connection_actions_auth";
 import React from "react";
 import { useSelector, useDispatch } from "../../../utils/hooks";
-import { TItem, TOrder } from "../../../utils/types/types";
+import { TItem, TSorted, TOrder } from "../../../utils/types/types";
 
 type TOrderInfo = {
   orderPrice?: number;
@@ -42,7 +42,7 @@ const OrderInfo: React.FC<TOrderInfo> = ({ orderPrice }) => {
       const findIngredient = order!.ingredients.map(
         (id: string) => ingredients.filter((item) => item._id === id)[0]
       );
-      const sortedIngredients: any[] = [];
+      const sortedIngredients: TSorted[] = [];
       findIngredient.map((ingr) => {
         const isLocated =
           sortedIngredients.filter((el) => el.item._id === ingr._id).length !==

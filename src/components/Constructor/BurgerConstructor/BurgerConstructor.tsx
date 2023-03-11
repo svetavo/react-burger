@@ -23,7 +23,7 @@ export const BurgerConstructor: React.FC = () => {
     (store) => store.addedIngredients.ingredients
   );
 
-  const allIngredients: any[] = [...buns, ...ingredients];
+  const allIngredients: TItem[] = [...buns, ...ingredients];
   const dispatch = useDispatch();
 
   const priceDecrement = (item: TItem) => {
