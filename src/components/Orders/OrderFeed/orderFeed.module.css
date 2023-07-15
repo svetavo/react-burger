@@ -1,0 +1,25 @@
+@import url('../../../utils/colors.css');
+
+.feed{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    overflow-y: scroll;
+    height: 750px;
+    margin-right: 60px;
+  }
+  
+  .feed::-webkit-scrollbar {
+    background-color: var(--scrollbar-dark);
+    height: 664px;
+    width: 8px;
+  }
+  
+  .feed::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-light);
+    height: 492px;
+    width: 8px;
+  }
+  

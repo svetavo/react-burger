@@ -1,0 +1,43 @@
+@import url("../../utils/colors.css");
+
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: var(--card-bg);
+}
+.header__content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 1280px;
+}
+
+.header__item {
+  list-style: none;
+}
+
+.header__text {
+  color: var(--white-txt);
+}
+
+.header__constructor {
+  display: flex;
+  flex-direction: row;
+}
+
+.header__logo {
+  text-align: center;
+  width: 290px;
+}
+
+.header__button {
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}

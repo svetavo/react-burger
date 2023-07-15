@@ -1,0 +1,43 @@
+@import url("../../../utils/colors.css");
+
+.ingredient__title {
+  text-align: left;
+  margin-bottom: 24px;
+  margin-top: 10px;
+}
+
+.ingredient__title_center {
+  text-align: center;
+  margin-bottom: 24px;
+  margin-top: 10px;
+  padding-top: 100px;
+}
+
+.ingredient__image {
+  width: 480px;
+  margin-bottom: 16px;
+}
+
+.ingredient__name {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.ingredient__info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  width: 520px;
+}
+
+.ingredient__infoitem {
+  text-align: center;
+}
+
+.ingredient__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

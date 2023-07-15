@@ -1,0 +1,20 @@
+@import url("../../../utils/colors.css");
+
+.orders {
+  display: flex;
+  flex-direction: row;
+  max-width: 580px;
+  margin-bottom: 60px;
+}
+.orders__ready {
+  width: 50%;
+}
+.orders__inProcess {
+  width: 50%;
+}
+.orders__readyItem {
+  color: var(--blue-text);
+}
+.orders__summaryText {
+  text-shadow: 1px 1px 1px var(--text-shadow), 0 0 1em var(--text-shadow);
+}

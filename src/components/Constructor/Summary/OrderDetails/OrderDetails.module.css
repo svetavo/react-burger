@@ -1,0 +1,41 @@
+@import url("../../../../utils/colors.css");
+
+.order__number {
+  text-shadow: 0.2px 0.2px 0.2px var(--text-shadow),
+    0 0 0.1em var(--text-shadow);
+}
+
+.order__pic {
+  width: 120px;
+}
+
+.order__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 80px 60px;
+}
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.loader {
+  border: 8px solid var(--white-txt); 
+  border-top: 8px solid var(--text-shadow); 
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

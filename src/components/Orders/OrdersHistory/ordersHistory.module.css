@@ -1,0 +1,20 @@
+@import url("../../../utils/colors.css");
+
+.profileFeedContainer {
+  overflow-y: scroll;
+  height: 750px;
+  width: 100%;
+}
+.profileFeedContainer::-webkit-scrollbar {
+  background-color: var(--scrollbar-dark);
+  height: 664px;
+  width: 8px;
+  margin-left: 8px;
+}
+
+.profileFeedContainer::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-light);
+  height: 492px;
+  width: 8px;
+  margin-left: 8px;
+}
