@@ -1,6 +1,5 @@
 @import url("../../utils/colors.css");
 
-
 .header {
   width: 100%;
   display: flex;
@@ -29,6 +28,7 @@
 }
 
 .header__logo {
+  margin-left: -220px;
   text-align: center;
   width: 290px;
 }
