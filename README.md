@@ -1,30 +1,35 @@
-### Учебный проект для работы космической бургерной
-### Study project for space burger restaurant
+**Учебный проект для работы космической бургерной**
 
-### Страница приложения/project page: 
+**Study project for space burger restaurant**
+
+**Страница приложения/project page: 
 https://react-burger-svetavo.netlify.app/
 
 <img src="https://static.tildacdn.com/tild6134-3336-4864-b066-666437373130/__2023-07-01__153116.png" width="500"/>
 
-English below 
+_English below_
 
+**Функциональность**
 
 - Создание бургеров
 - Работа с сервером
 - Аутентификация пользователя
 - Реализация отображения ленты заказов в реальном времени 
 
-### Технологический стек:
+**Технологический стек:**
 React, Redux, TypeScript, Websocket
 
-### Запуск приложения:
-npm i
+**Инструкция по запуску приложения:**
 
-npm run dev 
+    npm i
+   
+    npm run dev
+
 
 **ENGLISH:**
 
-functionality:
+**functionality:**
+
 - creation of burgers
 - server sommunication
 - user authenfication
@@ -33,11 +38,9 @@ functionality:
 **Stack:**
 React, Redux, TypeScript, Websocket
 
-**Running**
-npm i
+**Running:**
 
-npm run dev 
-
-
-  
+    npm i
+   
+    npm run dev
  
